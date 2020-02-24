@@ -1,0 +1,6 @@
+out*
+*.
+ipch*
+*.sdf
+*.suo
+*.opensdf

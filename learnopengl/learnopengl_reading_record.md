@@ -1,0 +1,1 @@
+使用visual studio 2010的时候如果使用glad，发现`gladLoadGLLoad((GLADloadproc)glfwGetProAddress))`返回一直为false，因此此处使用glew。
