@@ -23,8 +23,9 @@
 4. McsfMedVisualization3DPackage 完成SceneData梳理；
 5. 《Games101：现代计算机图形学入门》课程视屏学习；
 6. 《Games101：现代计算机图形学入门》课程作业；
-7. **work-related**：给出棋盘格详细实现方案，并实现；
-8. **work-related**：对DRR整个环节设计的过程进一步梳理；
+7. learnopengl part1 chapter 6、7、8、9，输出为对应的代码实现；
+8. **work-related**：给出棋盘格详细实现方案，并实现；
+9. **work-related**：对DRR整个环节设计的过程进一步梳理；
 
 
 
