@@ -9,3 +9,5 @@
 `glewInit()`要放到`glfwMakeContextCurrent`之后，并且在调用glewInit之前需要将glewExperimental变量设置成`GL_TRUE`。
 
 源代码自带的相机实在是太难操作了。
+
+transformation 一章 为什么旋转的时候会变形。

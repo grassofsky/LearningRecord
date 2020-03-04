@@ -17,9 +17,9 @@
 
 ### 关键性结果
 
-1. 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》书籍大纲的思维导图，细致到章节；
+1. :smile: 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》书籍大纲的思维导图，细致到章节；
 2. 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读5、6、7、8章节；
-3. 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》全书阅读完成；
+3. :smile: 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》全书阅读完成；
 4. McsfMedVisualization3DPackage 完成SceneData梳理；
 5. 《Games101：现代计算机图形学入门》课程视屏学习；
 6. 《Games101：现代计算机图形学入门》课程作业；
