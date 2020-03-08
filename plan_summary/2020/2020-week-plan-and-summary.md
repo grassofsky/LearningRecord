@@ -18,14 +18,34 @@
 ### 关键性结果
 
 1. :smile: 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》书籍大纲的思维导图，细致到章节；
-2. 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读5、6、7、8章节；
+2. :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读5、6、7、8章节；
 3. :smile: 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》全书阅读完成；
-4. McsfMedVisualization3DPackage 完成SceneData梳理；
-5. 《Games101：现代计算机图形学入门》课程视屏学习；
-6. 《Games101：现代计算机图形学入门》课程作业；
-7. learnopengl part1 chapter *6、7、8*、9，输出为对应的代码实现；
+4. :cry:McsfMedVisualization3DPackage 完成SceneData梳理；
+5. :smile:《Games101：现代计算机图形学入门》课程视屏学习；
+6. :smile:《Games101：现代计算机图形学入门》课程作业；
+7. :cry:learnopengl part1 chapter *6、7、8*、9，输出为对应的代码实现；
 8. :smile:**work-related**：给出棋盘格详细实现方案，并实现；
-9. **work-related**：对DRR整个环节设计的过程进一步梳理；
+9. :cry:**work-related**：对DRR整个环节设计的过程进一步梳理；
 
+### 复盘
 
+#### 未完成任务项分析
+
+本周的任务中出现了3项未完成任务。主要原因归结于这些任务对于工作电脑的需求，而工作电脑在周六的时候无法连接上了。因此，为了在后续任务中减少该风险项，可以有两种措施：
+
+- 将对应的工作记录，记录到私有的gitee上面；而不是单纯的monkey，这样可以避免无法远程工作电脑而导致任务没有顺利完成；
+- 将于工作相关的任务，尽可能的安排到工作时间，因为工作时间电脑故障，可以寻求同事进行远程帮助。
+
+从，量上面而言，**如果不是远程办公的形式，这些任务量存在偏多的可能**，在后面非远程办公的时候需要注意。
+
+## 2020年第11周 [2020-03-09 ~ 2020-03-15]
+
+### 关键性结果
+
+- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读9、10、11、12章节，通读只需要知道大致每节讲些什么内容即可。
+- 《Games101：现代计算机图形学入门》课程视屏学习；
+- 《Games101：现代计算机图形学入门》课程作业；
+- 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》思维导图，内容大致梳理，详细到节；
+- **work-related**：实现棋盘格功能，并完成checkin；
+- **work-related**：DRR，输出阶段性小结PPT；
 
