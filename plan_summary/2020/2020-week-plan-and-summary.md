@@ -45,7 +45,6 @@
 - 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读9、10、11、12章节，通读只需要知道大致每节讲些什么内容即可。
 - 《Games101：现代计算机图形学入门》课程视屏学习；
 - 《Games101：现代计算机图形学入门》课程作业；
-- 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》思维导图，内容大致梳理，详细到节；
+- learnopengl part1 chapter 9，10,11,12输出为对应的代码实现；
 - **work-related**：实现棋盘格功能，并完成checkin；
-- **work-related**：DRR，输出阶段性小结PPT；
 
