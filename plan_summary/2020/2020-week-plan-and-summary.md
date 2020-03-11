@@ -47,4 +47,5 @@
 - 《Games101：现代计算机图形学入门》课程作业；
 - learnopengl part1 chapter 9，10,11,12输出为对应的代码实现；
 - **work-related**：实现棋盘格功能，并完成checkin；
+- McsfMedVisualization3DPackage 完成SceneData梳理；
 
