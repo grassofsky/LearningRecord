@@ -42,10 +42,27 @@
 
 ### 关键性结果
 
-- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读9、10、11、12章节，通读只需要知道大致每节讲些什么内容即可。
+- :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读9、10、11、12章节，通读只需要知道大致每节讲些什么内容即可。
+- :smile:《Games101：现代计算机图形学入门》课程视屏学习；
+- :smile:《Games101：现代计算机图形学入门》课程作业；
+- :smile:learnopengl part1 chapter 9，10,11,12输出为对应的代码实现；
+- :smile:**work-related**：实现棋盘格功能，并完成checkin；
+- :cry:McsfMedVisualization3DPackage 完成SceneData梳理；
+
+### 复盘
+
+额外工作相关的内容，有对2-3D配准的整个流程有了更加清晰的框架。
+
+SceneData没有完成梳理，主要原始是其中有很多无法确定的内容。需要成员人员提供帮助。帮助形式，可以将相关问题梳理出来，以共享文档的形式在企业微信中，邀请同事帮忙解答。
+
+## 2020年第12周 [2020-03-16 ~ 2020-03-22]
+
+### 关键性结果
+
+- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读13、14、15、16章节，通读只需要知道大致每节讲些什么内容即可；
 - 《Games101：现代计算机图形学入门》课程视屏学习；
 - 《Games101：现代计算机图形学入门》课程作业；
-- learnopengl part1 chapter 9，10,11,12输出为对应的代码实现；
-- **work-related**：实现棋盘格功能，并完成checkin；
-- McsfMedVisualization3DPackage 完成SceneData梳理；
-
+- learnopengl part1 chapter 13，14,15,16输出为对应的代码实现；
+- McsfMedVisualization3DPackage 完成SceneData问题梳理，并发群里寻求帮助；
+- McsfMedVisualization3DPackage完成Export Scene梳理；
+- **work-related**：完成夸父骨科，需求梳理，对每一条需求，明确干什么，以及具体解决思路；
