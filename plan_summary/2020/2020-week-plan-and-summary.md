@@ -62,7 +62,7 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 - :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读13、14、15、16章节，通读只需要知道大致每节讲些什么内容即可；
 - 《Games101：现代计算机图形学入门》课程视屏学习；
 - 《Games101：现代计算机图形学入门》课程作业；
-- learnopengl part1 chapter 13，14,15,16输出为对应的代码实现；
+- :smile:learnopengl part1 chapter 13，14,15,16输出为对应的代码实现；
 - :smile:McsfMedVisualization3DPackage 完成SceneData问题梳理，并发群里寻求帮助；
 - :smile:McsfMedVisualization3DPackage完成Export Scene梳理，输出类关系图；
-- **work-related**：完成夸父骨科，需求梳理，对每一条需求，明确干什么，以及具体解决思路；
+- :cry:**work-related**：完成夸父骨科，需求梳理，对每一条需求，明确干什么，以及具体解决思路；
