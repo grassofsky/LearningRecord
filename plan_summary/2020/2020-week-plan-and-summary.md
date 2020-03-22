@@ -60,9 +60,25 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 ### 关键性结果
 
 - :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读13、14、15、16章节，通读只需要知道大致每节讲些什么内容即可；
-- 《Games101：现代计算机图形学入门》课程视屏学习；
-- 《Games101：现代计算机图形学入门》课程作业；
+- :smile:《Games101：现代计算机图形学入门》课程视屏学习；
+- :smile:《Games101：现代计算机图形学入门》课程作业；
 - :smile:learnopengl part1 chapter 13，14,15,16输出为对应的代码实现；
 - :smile:McsfMedVisualization3DPackage 完成SceneData问题梳理，并发群里寻求帮助；
 - :smile:McsfMedVisualization3DPackage完成Export Scene梳理，输出类关系图；
 - :cry:**work-related**：完成夸父骨科，需求梳理，对每一条需求，明确干什么，以及具体解决思路；
+
+### 复盘
+
+对于夸父骨科需求，由于缺少相关的知识储备，没法给出具体解决思路。这个在目标定制的时候出现的失误，要对自己掌握的内容有个明确的度量。
+
+对需求进行梳理的时候，脑海中要有清晰的业务流程，以及每个业务流程的步骤对应的实际显示需求。
+
+## 2020年第13周 [2020-03-23 ~ 2020-03-29]
+
+- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读17、18、19、20、21章节，通读只需要知道大致每节讲些什么内容即可；
+- 《Games101：现代计算机图形学入门》课程视屏学习；
+- 《Games101：现代计算机图形学入门》课程作业；
+- learnopengl part1 chapter 17,18,19,20,21输出为对应的代码实现；
+- McsfViewerSceneGraphGyph3DText入手，分析SceneGraph静态结构和动态流程；
+- **work-related**：对夸父骨科显示需求，进行细分，明确哪些是已经有的功能， 哪些是没有的功能（哪些又是更容易实现的）
+- **work-related**：针对小C配准确定的参数，调整DRR-wrapper接口，输出DRR投影的DICOM图像给浩玉；
