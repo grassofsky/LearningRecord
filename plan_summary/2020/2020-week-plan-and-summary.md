@@ -79,6 +79,6 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 - 《Games101：现代计算机图形学入门》课程视屏学习；
 - 《Games101：现代计算机图形学入门》课程作业；
 - learnopengl part1 chapter 17,18,19,20,21输出为对应的代码实现；
-- McsfViewerSceneGraphGyph3DText入手，分析SceneGraph静态结构和动态流程；
-- **work-related**：对夸父骨科显示需求，进行细分，明确哪些是已经有的功能， 哪些是没有的功能（哪些又是更容易实现的）
-- **work-related**：针对小C配准确定的参数，调整DRR-wrapper接口，输出DRR投影的DICOM图像给浩玉；
+- :smile:McsfViewerSceneGraphGyph3DText入手，分析SceneGraph静态结构和动态流程；
+- :smile:**work-related**：对夸父骨科显示需求，进行细分，明确哪些是已经有的功能， 哪些是没有的功能（哪些又是更容易实现的）
+- :smile:**work-related**：针对小C配准确定的参数，调整DRR-wrapper接口，输出DRR投影的DICOM图像给浩玉；
