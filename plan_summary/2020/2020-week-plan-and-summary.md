@@ -75,10 +75,23 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 
 ## 2020年第13周 [2020-03-23 ~ 2020-03-29]
 
-- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读17、18、19、20、21章节，通读只需要知道大致每节讲些什么内容即可；
-- 《Games101：现代计算机图形学入门》课程视屏学习；
-- 《Games101：现代计算机图形学入门》课程作业；
-- learnopengl part1 chapter 17,18,19,20,21输出为对应的代码实现；
+- :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读17、18、19、20、21章节，通读只需要知道大致每节讲些什么内容即可；
+- :smile:《Games101：现代计算机图形学入门》课程视屏学习；
+- :smile:《Games101：现代计算机图形学入门》课程作业；
+- :smile:learnopengl part2、3 chapter 17,18,19,20,21输出为对应的代码实现；
 - :smile:McsfViewerSceneGraphGyph3DText入手，分析SceneGraph静态结构和动态流程；
 - :smile:**work-related**：对夸父骨科显示需求，进行细分，明确哪些是已经有的功能， 哪些是没有的功能（哪些又是更容易实现的）
 - :smile:**work-related**：针对小C配准确定的参数，调整DRR-wrapper接口，输出DRR投影的DICOM图像给浩玉；
+
+### 复盘
+
+由于一个人在家办公，时间比较充裕，才可以很好的完成任务。
+
+## 2020年第14周 [2020-03-30 ~ 2020-04-05]
+
+- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》思维导图，细节到小章节；
+- 《Games101：现代计算机图形学入门》课程视屏学习；
+- 《Games101：现代计算机图形学入门》课程作业；
+- learnopengl part4 25，26, 27；
+- **work-related**：给出3D图元Common组件实现的方案，并完成讨论；
+- 完成doxygen中文使用文档撰写；
