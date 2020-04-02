@@ -252,7 +252,7 @@ int IntegerVariable;
 
 会生成如下的Module：
 
-![](E:/workplace/gitee/personalRecord/doxygen_manual/image/doxy_modules.png)
+![](./image/doxy_modules.png)
 
 ### Member group
 
@@ -272,9 +272,9 @@ void Memgrp_Test::func1InGroup2() {}
 
 结果显示如下：
 
-![](E:/workplace/gitee/personalRecord/doxygen_manual/image/doxy_member_group.png)
+![](./image/doxy_member_group.png)
 
-### subpaing
+### subpaging
 
 [\subpage](http://doxygen.nl/manual/commands.html#cmdsubpage)
 
