@@ -89,9 +89,9 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 
 ## 2020年第14周 [2020-03-30 ~ 2020-04-05]
 
-- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》思维导图，细节到小章节；
-- 《Games101：现代计算机图形学入门》课程视屏学习；
-- 《Games101：现代计算机图形学入门》课程作业；
+- :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》思维导图，细节到小章节；
+- :smile:《Games101：现代计算机图形学入门》课程视屏学习；
+- :smile:《Games101：现代计算机图形学入门》课程作业；
 - :smile:learnopengl part4 25，26, 27；
 - **work-related**：给出3D图元Common组件实现的方案，并完成讨论；
 - :smile:完成doxygen中文使用文档撰写；
