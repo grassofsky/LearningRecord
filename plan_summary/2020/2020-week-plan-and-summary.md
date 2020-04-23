@@ -1,6 +1,6 @@
 # 2020年周度计划和复盘
 
-## 2020年第9周复盘 [2020-02-24 ~ 2020-03-01]
+## :smile:2020年第9周复盘 [2020-02-24 ~ 2020-03-01]
 
 具体时间段：2020-02-24 ~ 2020-03-01
 
@@ -13,7 +13,7 @@
 - McsfMedVisualization3DPackage fusionmpr绘制初步梳理；
 - 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》阅读50%；
 
-## 2020年第10周 [2020-03-01 ~ 2020-03-08]
+## :cry: 2020年第10周 [2020-03-01 ~ 2020-03-08]
 
 ### 关键性结果
 
@@ -38,7 +38,7 @@
 
 从，量上面而言，**如果不是远程办公的形式，这些任务量存在偏多的可能**，在后面非远程办公的时候需要注意。
 
-## 2020年第11周 [2020-03-09 ~ 2020-03-15]
+## :cry: 2020年第11周 [2020-03-09 ~ 2020-03-15]
 
 ### 关键性结果
 
@@ -55,7 +55,7 @@
 
 SceneData没有完成梳理，主要原始是其中有很多无法确定的内容。需要成员人员提供帮助。帮助形式，可以将相关问题梳理出来，以共享文档的形式在企业微信中，邀请同事帮忙解答。
 
-## 2020年第12周 [2020-03-16 ~ 2020-03-22]
+## :cry: 2020年第12周 [2020-03-16 ~ 2020-03-22]
 
 ### 关键性结果
 
@@ -73,7 +73,7 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 
 对需求进行梳理的时候，脑海中要有清晰的业务流程，以及每个业务流程的步骤对应的实际显示需求。
 
-## 2020年第13周 [2020-03-23 ~ 2020-03-29]
+## :smile: 2020年第13周 [2020-03-23 ~ 2020-03-29]
 
 - :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》通读17、18、19、20、21章节，通读只需要知道大致每节讲些什么内容即可；
 - :smile:《Games101：现代计算机图形学入门》课程视屏学习；
@@ -87,11 +87,51 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 
 由于一个人在家办公，时间比较充裕，才可以很好的完成任务。
 
-## 2020年第14周 [2020-03-30 ~ 2020-04-05]
+## :smile: 2020年第14周 [2020-03-30 ~ 2020-04-05]
 
 - :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》思维导图，细节到小章节；
 - :smile:《Games101：现代计算机图形学入门》课程视屏学习；
 - :smile:《Games101：现代计算机图形学入门》课程作业；
 - :smile:learnopengl part4 25，26, 27；
-- **work-related**：给出3D图元Common组件实现的方案，并完成讨论；
+- :smile:**work-related**：给出3D图元Common组件实现的方案，并完成讨论；
 - :smile:完成doxygen中文使用文档撰写；
+
+## :cry: 2020年第15周 [2020-04-06 ~ 2020-04-12]
+
+- :cry:《Games101：现代计算机图形学入门》课程视屏学习；
+- :cry:《Games101：现代计算机图形学入门》课程作业；
+- :cry:learnopengl part4 28 29 30 31 32
+- :smile:**work-related**：给出3D图元Common组件实现的方案，后端代码实现；
+- :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第六章细读，并做笔记；
+
+### 复盘
+
+周末回襄阳接家人。导致部分内容没有完成。在计划设定的时候需要提前考虑到额外因素。详细如下：
+
+- 课程视频学习，**差一个视屏**；**课程作业没有完成**；
+- learnopengl part4 28 29 30 31 32，完成内容学习，但是没有**进行代码实现**；
+
+## :sob: 2020年第16周 [2020-04-13 ~ 2020-04-19]
+
+- :cry:《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》
+- :cry: learn opengl: part v,**33,34**,35,36,37,内容阅读
+- :cry:《Games101：现代计算机图形学入门》课程视屏学习；
+- :cry:《Games101：现代计算机图形学入门》课程作业
+- :cry:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第7章细读，并做笔记
+- :smile: **work-related**，路径规划，标记点功能调试。
+
+### 复盘
+
+本周主要时间都花在在“**work-related**，路径规划，标记点功能调试。”。其他的方面没有时间空余。learn opengl只是阅读了33，34章。
+
+**因此，需要对每周中的有效时间进行合理预估，在具体计划执行的过程中，需要对时间进行合理分配**。
+
+## 2020年第17周 [2020-04-20 ~ 2020-04-26]
+
+- 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》；
+- learn opengl: 35,36,37,38；
+- 《Games101：现代计算机图形学入门》课程视屏学习；
+- 《Games101：现代计算机图形学入门》课程作业;
+- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第7章细读，并做笔记；
+- **work-related**，路径规划，标记点功能，代码review，合入主干；
+- **work-related**，VT文档化
