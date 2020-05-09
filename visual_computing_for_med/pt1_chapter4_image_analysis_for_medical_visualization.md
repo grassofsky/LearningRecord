@@ -1,9 +1,3 @@
-+++
-date="2020-01-05" 
-title="visual computing for med reading - pt1 chapter 4 用于医学可视化的图像分析"
-categories=["visual computing for med reading"] 
-+++
-
 # visual computing for med reading - pt1 chapter 4 用于医学可视化的图像分析
 
 > 算法技术的介绍，需要光给出理论理解，以及代码实现示例

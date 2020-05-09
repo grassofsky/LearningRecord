@@ -59,6 +59,22 @@ $` \ Q(s) = I_ak_aO_d(s) + I_dk_dO_d(s)(N(s)\cdot L) + I_sk_s(V\cdot R)^n \ `$
 
 ## 7.3 组合 Compositing
 
+### *双向compositing是怎么进行的*?
+
+### *解释下下列Compositing实现，MIP，AVERAGE，CVP，MIDA*？
+
+### *什么是预集成体渲染（preintegrated volume rendering）？*
+
+## 7.5 常见的加速体渲染
+
+### *常见的加速体渲染的方法有哪些？*
+
+## 7.6 GPU体渲染
+
+### *GPU Raycasting算法实现的基本流程介绍？*
+
+
+
 
 
 

@@ -1,9 +1,3 @@
-+++
-date="2020-01-02" 
-title="visual computing for med reading - chapter 1 简介"
-categories=["visual computing for med reading"] 
-+++
-
 # visual computing for med - chapter 1 简介
 
 > Visual Computing for Medicine Theory, Algorithms, and Applications Edition 2

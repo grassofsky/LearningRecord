@@ -254,5 +254,3 @@
 - 21.8 基于物理模型的训练系统
 - 21.9 技能评估
 - Further Reading
-
-*XMind - Trial Version*

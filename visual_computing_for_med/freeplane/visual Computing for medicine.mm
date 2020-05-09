@@ -3,7 +3,7 @@
 <node TEXT="visual Computing for medicine" FOLDED="false" ID="ID_681721822" CREATED="1587431891758" MODIFIED="1587431976727" STYLE="oval">
 <font SIZE="18"/>
 <hook NAME="MapStyle">
-    <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" fit_to_viewport="false"/>
+    <properties fit_to_viewport="false" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_icon_for_attributes="true" show_note_icons="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -144,7 +144,7 @@
 <node TEXT="Furthing Reading" ID="ID_205488543" CREATED="1587431893040" MODIFIED="1587431893040"/>
 </node>
 </node>
-<node TEXT="Part2. 医学数据的可视化和探索" FOLDED="true" ID="ID_1826938879" CREATED="1587431893040" MODIFIED="1587431893040">
+<node TEXT="Part2. 医学数据的可视化和探索" ID="ID_1826938879" CREATED="1587431893040" MODIFIED="1587431893040">
 <node TEXT="ch6. 表面渲染" FOLDED="true" ID="ID_626839590" CREATED="1587431893040" MODIFIED="1587431893040">
 <node TEXT="6.2 基于等高线的曲面重建" FOLDED="true" ID="ID_184560274" CREATED="1587431893040" MODIFIED="1587431893040">
 <node TEXT="6.2.1 拓扑问题" ID="ID_1651174355" CREATED="1587431893040" MODIFIED="1587431893040"/>
@@ -165,7 +165,7 @@
 <node TEXT="7.6 GPU有上直接体渲染" ID="ID_252132264" CREATED="1587431893040" MODIFIED="1587431893040"/>
 <node TEXT="Further Reading" ID="ID_184159058" CREATED="1587431893040" MODIFIED="1587431893040"/>
 </node>
-<node TEXT="ch8. 高级的直接体可视化" FOLDED="true" ID="ID_246382403" CREATED="1587431893040" MODIFIED="1587431893040">
+<node TEXT="ch8. 高级的直接体可视化" ID="ID_246382403" CREATED="1587431893040" MODIFIED="1587431893040">
 <node TEXT="8.2 体积照明" ID="ID_886108014" CREATED="1587431893040" MODIFIED="1587431893040"/>
 <node TEXT="8.3 人工深度增强" ID="ID_1957513474" CREATED="1587431893040" MODIFIED="1587431893040"/>
 <node TEXT="Further Reading" ID="ID_1963265425" CREATED="1587431893040" MODIFIED="1587431893040"/>

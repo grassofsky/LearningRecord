@@ -126,12 +126,33 @@ SceneData没有完成梳理，主要原始是其中有很多无法确定的内�
 
 **因此，需要对每周中的有效时间进行合理预估，在具体计划执行的过程中，需要对时间进行合理分配**。
 
-## 2020年第17周 [2020-04-20 ~ 2020-04-26]
+## :cry:2020年第17周 [2020-04-20 ~ 2020-04-26]
 
-- 《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》；
-- learn opengl: 35,36,37,38；
-- 《Games101：现代计算机图形学入门》课程视屏学习；
-- 《Games101：现代计算机图形学入门》课程作业;
-- 《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第7章细读，并做笔记；
-- **work-related**，路径规划，标记点功能，代码review，合入主干；
-- **work-related**，VT文档化
+- :cry:《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》；
+- :smile:learn opengl: 35,36,37,38；
+- :cry:《Games101：现代计算机图形学入门》课程视屏学习；
+- :smile:《Games101：现代计算机图形学入门》课程作业;
+- :smile:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第7章细读，并做笔记；
+- :smile:**work-related**，路径规划，标记点功能，代码review，合入主干；
+- :smile:**work-related**，VT文档化
+
+### 复盘
+
+未完成任务，没有按时完成的主要原因是，工作生活的区分。要充分考虑到生活中的时间空闲程度。以及充分利用工作时间，完成相关任务。以及对于计划中的事项，需要给出办公操作的方案。
+
+## 2020年第18周 [2020-04-27 ~ 2020-05-03]
+
+- :smile:获取《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》pdf版本；
+- :smile: ​learn opengl: 39,40,41，42；
+- :smile:《Games101：现代计算机图形学入门》剩余视屏学习；
+- :cry:《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第8章细读；
+- :smile:**work-related**，文档，设计及算法实现，提供目录；
+
+## 2020年第19周 [2020-05-04 ~ 2020-05-10]
+
+- :smile:P0，《OKR工作法：谷歌、领英等顶级公司的高绩效秘籍》思维导图；
+- P1，learn opengl：43， 44， 45， 46；
+- P0，《Games101：现代计算机图形学入门》作业8补交；
+- P1，《[Morgan Kaufmann] Visual Computing for Medicine Theory, Algorithms, and Applications 2nd Edition》第8章细读；
+- :smile:P0，**work-related**： 梳理3D图元实现逻辑，形成小结，确定待改项；
+- :smile:P0，**work-related**： 3droi，merge到主干；

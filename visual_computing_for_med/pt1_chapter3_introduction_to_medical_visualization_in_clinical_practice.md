@@ -1,9 +1,3 @@
-+++
-date="2020-01-05" 
-title="visual computing for med reading - pt1 chapter 3 诊断实践中医学可视化简介"
-categories=["visual computing for med reading"] 
-+++
-
 # visual computing for med reading - pt1 chapter 3 治疗实践中医学可视化简介
 
 ## 3.2 诊断准确性

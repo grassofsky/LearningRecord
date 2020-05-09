@@ -1,10 +1,3 @@
-+++
-date="2020-01-02" 
-title="visual computing for med reading - pt1 chapter 2 获取医学影像数据"
-categories=["visual computing for med reading"] 
-
-+++
-
 #  visual computing for med - pt1 chapter 2 获取医学影像数据
 
 ## 2.1 简介
