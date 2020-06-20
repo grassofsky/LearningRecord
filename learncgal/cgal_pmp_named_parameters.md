@@ -97,9 +97,7 @@ PMP::parameters::vertex_point_map(get_property_map(CGAL::vertex_point, mesh))
 
 与mesh直接相关的参数有：`vertex_point_map`, `vertex_index_map`, `face_index_map`, `edge_is_constrained_map`。
 
-下面有很多概念不理解。不理解的有：geom_traits, vertex_incident_patches_map, vertex_feature_degree_map, vertex_is_constrained_map, face_patch_map, first_index, sparse_linear_solver, apply_per_connected_component, visitor, 
-
-### 部分Named Parameters理解
+### 部分Named Parameters尝鲜
 
 #### density_control_factor
 
@@ -133,78 +131,101 @@ PMP::refine(poly,
 
 从效果中可见，函数fair是用来对一定区域的网格做平滑处理。具体要参考论文了：https://doc.cgal.org/latest/Polygon_mesh_processing/citelist.html#CITEREF_Botsch2008OnLinearVariational。
 
-#### parameter for isotropic_remeshing
+#### parameters for isotropic_remeshing
 
-- number_of_iterations:
-- protect_constraints 
-- collapse_constraints 
-- relax_constraints 
-- number_of_relaxation_steps 
+- number_of_iterations, default 1
+- protect_constraints ，default false
+- collapse_constraints ，default true
+- relax_constraints ，default true
+- number_of_relaxation_steps ，default 1
 
 remesh 依次执行边分割、边折叠、边翻转、切线松弛和投影到初始曲面，以生成具有指定边长度的平滑网格。 参考demo见：https://doc.cgal.org/latest/Polygon_mesh_processing/Polygon_mesh_processing_2isotropic_remeshing_example_8cpp-example.html#a5
 
-如果remesh参数种给的target_edge_length为0，那么不会执行边分割，边折叠。
+如果remesh参数种给的target_edge_length为0，那么不会执行边分割，边折叠。参数的使用方式与简单介绍如下：
 
+```c++
+PMP::isotropic_remeshing(
+    faces(mesh),
+    target_edge_length,
+    mesh,
+    Params::number_of_iterations(1)       // 迭代次数
+    .protect_constraints(false)           // 如果这个为true，那么edge_is_constrained_map中设定的edge是不会被改变的
+    .collapse_constraints(true)           // 如果是true，那么edge_is_constrained_map中的边会进行collapse操作
+    .relax_constraints(true)              // 如果protect_constraints为true，那么这个值被忽略；
+                                          // 该值为true，会对edge_is_constrained_map中给定的约束的边和点进行relaxation操作
+    .number_of_relaxation_steps(1)        // isotropic_remeshing迭代过程中，relaxation迭代次数
+);
+```
 
+默认情况下`edge_is_constrained_map`中设定的值为false，`protect_constraints`, `collapse_constraints`, `relax_constraints`对结果不会有影响。如何对`edge_is_constrained_map`的值进行设定了，可以参见：https://doc.cgal.org/latest/Polygon_mesh_processing/Polygon_mesh_processing_2corefinement_difference_remeshed_8cpp-example.html#a2。
 
-#### use_delaunay_triangulation 
+#### parameters for sample_triangle_mesh
 
-#### use_random_uniform_sampling 
+- use_random_uniform_sampling: 使用随机均匀采样，default true
+- use_grid_sampling ： 点从每个面片的网格中采样，default false
+- use_monte_carlo_sampling ：使用Monte-Carlo approach进行采样，default false
+- sample_edges ：是否对边缘进行了专用采样，default true
+- sample_vertices ：是否在输出迭代器中输出三角形顶点，default true
+- sample_faces ：采样的时候是否考虑面片的内部，default true
+- number_of_points_on_faces ：随机采样的时候面上采样的点数，default 0
+- number_of_points_on_edges ：随机采样的时候边上采样的点数，default 0
+- number_of_points_per_face，Monte-Carlo采样的时候面上采样的点数，default 0
+- number_of_points_per_edge ，Monte-Carlo采样的时候边上采样的点数，default 0
+- grid_spacing ，grid sampling 的时候grid的spacing，default 0
+- number_of_points_per_area_unit ，随机采样和MC采样的时候单位面积采样的点数；
+- number_of_points_per_distance_unit，随机采样和MC采样的时候，从边上单位距离采样的点数；
 
-#### use_grid_sampling 
+number_of_points_on_faces设置的示例如下：
 
-#### use_monte_carlo_sampling 
+```c++
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Surface_mesh.h>
+#include <CGAL/Polygon_mesh_processing/distance.h>
+#include <boost/function_output_iterator.hpp>
 
-#### sample_edges 
+#include <fstream>
+#include <map>
 
-#### sample_vertices 
+typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;
+typedef CGAL::Surface_mesh<Kernel::Point_3> Mesh;
+namespace PMP = CGAL::Polygon_mesh_processing;
+namespace Params = PMP::parameters;
 
-#### sample_faces 
+void read_mesh(Mesh& mesh, std::string filename)
+{
+    std::ifstream input(filename);
+    if (!input || !(input >> mesh) || !CGAL::is_triangle_mesh(mesh)) {
+        std::cerr << "Not a valid input file" << std::endl;
+        return;
+    }
+}
+    
+void write_points(const std::vector<Kernel::Point_3>& points, std::string filename)
+{
+    std::ofstream out(filename);
+    for (int i = 0; i < points.size(); ++i)
+    {
+        out << points[i].x() << " " << points[i].y() << " " << points[i].z() << "\n";
+    }
+    out.close();
+}
 
-#### number_of_points_on_faces 
+int main()
+{
+	Mesh mesh;
+    read_mesh(mesh, "E:/stl/cube.off");
 
-#### number_of_points_on_edges 
+    std::vector<Kernel::Point_3> outPoints;
+    PMP::sample_triangle_mesh(
+        mesh, std::back_inserter(outPoints),
+        Params::use_random_uniform_sampling(true)
+        .number_of_points_on_faces(50));
 
-#### number_of_points_per_face
-
-#### number_of_points_per_edge 
-
-#### grid_spacing 
-
-#### number_of_points_per_area_unit 
-
-#### number_of_points_per_distance_unit
-
-#### do_project
-
-#### random_seed 
-
-#### outward_orientation 
-
-#### do_overlap_test_of_bounded_sides 
-
-#### projection_functor 
-
-#### throw_on_self_intersection 
+    write_points(outPoints, "E:/stl/test/np_on_faces_50.xyz");  // 最终得到的点为采样的点和原始mesh中的点和合集
+    return 0;
+}
+```
 
 #### clip_volume
 
-#### use_compact_clipper 
-
-#### output_iterator 
-
-#### erase_all_duplicates 
-
-#### require_same_orientation 
-
-#### snapping_tolerance 
-
-#### use_angle_smoothing_t 
-
-#### use_area_smoothing_t 
-
-#### use_Delaunay_flips_t 
-
-#### use_safety_constraints 
-
-#### face_size_map 
+clip_volume，如果为true，会补全clip之后的洞。default false。
