@@ -48,7 +48,7 @@ ax.set_title("step=1")
 
 ```
 
-![png](output_4_1.png)
+![png](./output_4_1.png)
 
 ```python
 print("image with step0.01 is equal to step0.1? ", image1 == image2)
@@ -91,7 +91,7 @@ draw_line2((80, 40), (13, 20), (255, 0, 0), fig, 133)
 ```
 
 
-![png](output_8_0.png)
+![png](./output_8_0.png)
 
 
 从上面的结果可以发现，当x方向的距离小于y方向的距离的时候会导致采样不足。第二个图点和点之间出现了空洞。下面进行第三次尝试。
@@ -132,7 +132,7 @@ draw_line3((80, 40), (13, 20), (255, 0, 0), fig, 133)
 ```
 
 
-![png](output_12_0.png)
+![png](./output_12_0.png)
 
 
 ## Fourth attempt
@@ -181,7 +181,7 @@ draw_line4((20, 13), (40, 80), (255, 0, 0), fig, 132)
 draw_line4((80, 40), (13, 20), (255, 0, 0), fig, 133)
 ```
 
-![png](output_15_0.png)
+![png](./output_15_0.png)
 
 ## Timings: fifth and final attempt
 
@@ -240,5 +240,5 @@ ax = fig.add_subplot(111)
 ax.imshow(image)
 ```
 
-![png](output_18_1.png)
+![png](./output_18_1.png)
 

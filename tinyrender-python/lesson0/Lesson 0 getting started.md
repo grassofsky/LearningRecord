@@ -22,5 +22,5 @@ draw_point(image, (52,41), (255,0,0))
 plt.imshow(image)
 ```
 
-![png](output_3_1.png)
+![png](./output_3_1.png)
 

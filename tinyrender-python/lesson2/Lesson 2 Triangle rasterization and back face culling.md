@@ -95,7 +95,7 @@ ax = fig.add_subplot(111)
 ax.imshow(image)
 ```
 
-![png](output_3_2.png)
+![png](./output_3_2.png)
 
 ## 利用重心坐标
 
@@ -140,7 +140,7 @@ ax.imshow(pixels.to_numpy())
 
 ```
 
-![png](output_5_2.png)
+![png](./output_5_2.png)
 
 
 这里可能比较好奇，为啥得到的图像和之前的是反的？因为对于图像而言，(m,n),m指的是宽，n指的是高。对于数组(m,n)而言，m指的是行数，n指的是列数。这个可以自己试着调整下。
@@ -193,7 +193,7 @@ ax = fig.add_subplot(111)
 ax.imshow(pixels.to_numpy())
 ```
 
-![png](output_7_1.png)
+![png](./output_7_1.png)
 
 在原文中还引入了光照以及法向量，此处不进行考虑。仅对back face culling进行简单说明，三角形的三个点排序后可能是顺时针方向，也可能是逆时针方向，如果我们规定，逆时针方向为正面，那么顺时针方向的三角形就是背面，那么back face culling的意思就是不绘制顺时针方向的点。对上面的例子进行更改，如果逆时针方向，那么就是红色，如果是顺时针方向，那么就是白色。由于obj中的三角片面的顺序和正面反面无关，因此必然会得到不同颜色相交的现象。
 
@@ -249,4 +249,4 @@ ax = fig.add_subplot(111)
 ax.imshow(pixels.to_numpy())
 ```
 
-![png](output_9_1.png)
+![png](./output_9_1.png)
