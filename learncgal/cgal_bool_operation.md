@@ -105,3 +105,74 @@ In case a segment belong to the triangle, we repeat the same procedure for each 
 
 ```
 
+### filter_intersections全览
+
+```c++
+  void filter_intersections(const TriangleMesh& tm_f,
+                            const TriangleMesh& tm_e,
+                            const VertexPointMap& vpm_f,
+                            const VertexPointMap& vpm_e,
+                            bool throw_on_self_intersection)
+  {
+    std::vector<Box> face_boxes, edge_boxes;
+    std::vector<Box*> face_boxes_ptr, edge_boxes_ptr;
+
+    face_boxes.reserve(num_faces(tm_f));
+    face_boxes_ptr.reserve(num_faces(tm_f));
+    BOOST_FOREACH(face_descriptor fd, faces(tm_f))
+    {
+      halfedge_descriptor h=halfedge(fd,tm_f);
+      face_boxes.push_back( Box(
+        get(vpm_f,source(h,tm_f)).bbox() +
+        get(vpm_f,target(h,tm_f)).bbox() +
+        get(vpm_f,target(next(h,tm_f),tm_f)).bbox(),
+        h ) );
+      face_boxes_ptr.push_back( &face_boxes.back() );
+    }
+
+    edge_boxes.reserve(num_edges(tm_e));
+    edge_boxes_ptr.reserve(num_edges(tm_e));
+    BOOST_FOREACH(edge_descriptor ed, edges(tm_e))
+    {
+      halfedge_descriptor h=halfedge(ed,tm_e);
+      edge_boxes.push_back( Box(
+        get(vpm_e,source(h,tm_e)).bbox() +
+        get(vpm_e,target(h,tm_e)).bbox(),
+        h ) );
+      edge_boxes_ptr.push_back( &edge_boxes.back() );
+    }
+
+    /// \todo experiments different cutoff values
+    std::ptrdiff_t cutoff = 2 * std::ptrdiff_t(
+        std::sqrt(face_boxes.size()+edge_boxes.size()) );
+
+    Edge_to_faces& edge_to_faces = &tm_e < &tm_f
+                                 ? stm_edge_to_ltm_faces
+                                 : ltm_edge_to_stm_faces;
+
+    #ifdef DO_NOT_HANDLE_COPLANAR_FACES
+    typedef Collect_face_bbox_per_edge_bbox<TriangleMesh, Edge_to_faces>
+      Callback;
+    Callback callback(tm_f, tm_e, edge_to_faces);
+    #else
+    typedef Collect_face_bbox_per_edge_bbox_with_coplanar_handling<
+      TriangleMesh, VertexPointMap, Edge_to_faces, Coplanar_face_set>
+     Callback;
+    Callback  callback(tm_f, tm_e, vpm_f, vpm_e, edge_to_faces, coplanar_faces);
+    #endif
+    //using pointers in box_intersection_d is about 10% faster
+    if (throw_on_self_intersection){
+        Callback_with_self_intersection_report<TriangleMesh, Callback> callback_si(callback);
+        CGAL::box_intersection_d( face_boxes_ptr.begin(), face_boxes_ptr.end(),
+                                  edge_boxes_ptr.begin(), edge_boxes_ptr.end(),
+                                  callback_si, cutoff );
+        if (callback_si.self_intersections_found())
+         throw Self_intersection_exception();
+    }
+    else
+        CGAL::box_intersection_d( face_boxes_ptr.begin(), face_boxes_ptr.end(),
+                              edge_boxes_ptr.begin(), edge_boxes_ptr.end(),
+                              callback, cutoff );
+  }
+```
+
