@@ -22,8 +22,6 @@
 
 3) segment和三角形顶点相交：执行和2)相同的操作；
 
-In case a segment belong to the triangle, we repeat the same procedure for each segment incident to this endpoint.？？？
-
 注意给定一对（段，三角形）=（S，T），如果S属于T所在的平面，满足下面情况的话，我们不做任何事情：
 
 - 没有三角形T'包含S使得T和T'共面
