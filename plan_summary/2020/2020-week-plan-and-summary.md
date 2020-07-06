@@ -187,10 +187,21 @@ learn opengl深入掌握需要的工作量明显大于预估，Visual Computing 
 - :smile:fusion融合显示dim；
 - :smile:机器人需要的文档；
 
-## 2020年第24周[2020-06-08~ 2020-06-14]
+## :smile: 2020年第24周[2020-06-08~ 2020-06-14]
 
-- Read <<C++17 STL Cook Book>>, 6 ~ 8 chapter；
-- Source Code Merge；
-- VTK Mesh bool operation ；
-- 图元透明算法了解（周五会有介绍）；
+- :smile:Read <<C++17 STL Cook Book>>, 6 ~ 8 chapter；
+- :smile:Source Code Merge；
+- :smile:VTK Mesh bool operation ；
+- :cry:图元透明算法了解（周五会有介绍）；
 - :smile: 文档补充DS；
+
+### 复盘
+
+透明算法介绍时间不在本周。推迟。
+
+## 2020年第25周[2020-06-15~ 2020-06-21]
+
+- Read <<C++17 STL Cook Book>>, 9 ~ 10 chapter；
+- 磨搓实现讨论，继续；
+- 半透明算法；
+

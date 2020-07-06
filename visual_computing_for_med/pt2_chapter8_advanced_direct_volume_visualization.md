@@ -56,7 +56,31 @@ $$
 L(\bold x, \bold \omega_o) = L_0(\bold x_0, \bold{\omega_o})\cdot T(\bold x_0, \bold x) + \int_{\bold x_0}^{\bold x}o(\bold x')\cdot T(\bold x', x)d\bold x'
 $$
 
+其中$L_0(\bold{x_0}, \bold{\omega_o})$描述了进入到volume的背景能量，$o(\bold{x'})$定义了位置$\bold{x'}$位置的光学特性，$T(\bold{x_i}, \bold{x_j})$描述了光穿过提数据时的衰减：
+$$
+T(\bold{x_i}, \bold{x_j}) = e^{-\int_{\bold{x_i}}^{\bold{x_j}}\tau(\bold{x'})d\bold{x'}}
+$$
+综上得：
+$$
+L(\bold x, \bold \omega_o) = L_0(\bold x_0, \bold{\omega_o})\cdot T(\bold x_0, \bold x) + \int_{\bold x_0}^{\bold x}(L_e(\bold{x}) + (s(\bold{x'},\bold{\omega_i},\bold{\omega_o})\cdot L_i(\bold{x'},\bold{\omega_i})))\cdot T(\bold x', \bold x)d\bold x'
+$$
+其中，$\bold{\omega_i} = \bold{x_l}-\bold{x'}$。
 
+### *文中将算法分成了哪几类？*
+
+- 基于局部区域的技术，仅考虑体素的周边邻域；
+- slice-based技术，对体数据中的片层进行迭代，来传播光线；
+- light space-based技术，从光源看投影照明；
+- lattice-based技术，不需要采样，直接计算体素上的光照；
+- Basis function-based技术，利用基函数表示照明信息；
+
+### *对上面介绍的几类算法的实现给出详细介绍*
+
+**TODO**
+
+### *介绍下基于光线追踪的技术*
+
+**TODO**
 
 
 
