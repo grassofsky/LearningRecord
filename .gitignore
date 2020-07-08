@@ -1,6 +1,2 @@
-out*
-*.
-ipch*
-*.sdf
-*.suo
-*.opensdf
+*build*
+out
