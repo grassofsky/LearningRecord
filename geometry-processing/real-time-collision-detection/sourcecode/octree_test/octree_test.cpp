@@ -2,10 +2,13 @@
 #include <vector>
 #include <map>
 #include <sstream>
+#include <cmath>
 
-const int MAX_DEPTH = 1;
+const int MAX_DEPTH = 2;
 
 struct Point {
+    Point() {}
+    Point(float xi, float yi, float zi) : x(xi), y(yi), z(zi) {}
     float x{ 0.0f };
     float y{ 0.0f };
     float z{ 0.0f };
@@ -81,7 +84,7 @@ void InsertObject(Node* pTree, Object* pObject)
     // If straddling any of the dividing x, y, or z planes, exit directly
     for (int i = 0; i < 3; ++i) {
         float delta = pObject->center[i] - pTree->center[i];
-        if (std::abs(delta) < pTree->halfWidth + pObject->radius) { // TODO CHECK
+        if (std::abs((double)delta) < pTree->halfWidth + pObject->radius) { // TODO CHECK
             straddle = 1;
             break;
         }
@@ -113,7 +116,7 @@ bool TestCollision(Object* pA, Object* pB)
     float y = pA->center[1] - pB->center[1];
     float z = pA->center[2] - pB->center[2];
 
-    float length = std::sqrtf(x * x + y * y + z * z);
+    float length = std::sqrt(x * x + y * y + z * z);
     return length < pA->radius + pB->radius;
 }
 
@@ -139,7 +142,7 @@ std::map<std::string, std::pair<Object*, Object*>> TestAllCollisions(Node* pTree
                 if (pA == pB) break;
                 key = GenerateKey(pA, pB);
                 if (result.count(key) == 0 && TestCollision(pA, pB)) {
-                    result.insert_or_assign(key, std::make_pair(pA, pB));
+                    result[key] = std::make_pair(pA, pB);
                 }
             }
         }
@@ -171,16 +174,19 @@ int main()
     // Assuming the depth of octree is 1
     // The root center is (0.0, 0.0, 0.0)
     // The root width is 2.0
-    Node* pRoot = BuildOctree(Point{ 0.0, 0.0, 0.0 }, 1.0, MAX_DEPTH);
+    Node* pRoot = BuildOctree(Point{ 0.0, 0.0, 0.0 }, 1.0, MAX_DEPTH-1);
 
-    Object objs[2];
-    objs[0].radius = 0.5;
+    Object objs[3];
+    objs[0].radius = 0.9;
     objs[0].center = Point{ 0.0, 0.0, 0.0 };
     objs[1].radius = 0.1;
     objs[1].center = Point{ -0.5, -0.5, -0.5 };
+    objs[2].radius = 0.3;
+    objs[2].center = Point{0.1, 0.2, 0.3};
 
     InsertObject(pRoot, &objs[0]);
     InsertObject(pRoot, &objs[1]);
+    InsertObject(pRoot, &objs[2]);
 
     std::cout << "=================================" << std::endl;
     auto result = TestAllCollisions(pRoot);
