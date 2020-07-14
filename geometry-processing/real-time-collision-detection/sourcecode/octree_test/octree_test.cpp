@@ -4,6 +4,8 @@
 #include <sstream>
 #include <cmath>
 
+#include "triangle_intersection_test.h"
+
 const int MAX_DEPTH = 2;
 
 struct Point {
@@ -169,7 +171,7 @@ void PrintCollisionInfo(const std::map<std::string, std::pair<Object*, Object*>>
     }
 }
 
-int main()
+int main_()
 {
     // Assuming the depth of octree is 1
     // The root center is (0.0, 0.0, 0.0)
@@ -192,5 +194,11 @@ int main()
     auto result = TestAllCollisions(pRoot);
     PrintCollisionInfo(result);
 
+    return 0;
+}
+
+int main()
+{
+    IntersectionTest::TestCase();
     return 0;
 }
