@@ -219,4 +219,4 @@ Object: Obj Center: {0, 0, 0} radius: 0.9 Intersects Object: Obj Center: {0.1, 0
 
 ## 三角面片之间的碰撞检测
 
-要实现三角形碰撞检测，最关键的地方就是需要判断两个三角形是不是相交。
+要实现三角形碰撞检测，最关键的地方就是需要判断两个三角形是不是相交。判断三角片面之间相交的实现可以参见：https://www.cnblogs.com/grass-and-moon/p/13300247.html
