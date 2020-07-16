@@ -12,7 +12,9 @@ if (WIN32)
     )
 endif ()
 
-set(DEPEND_LIBS "")
+set(CMAKE_BUILD_TYPE "Release")
+set(DEPEND_LIBS_RELEASE "")
+set(DEPEND_LIBS_DEBUG "")
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(OPENMESH_PATH "/usr/local/include")
     add_compile_options(-std=c++11)
@@ -23,9 +25,17 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
     set(IMGUI_PATH "E:/workplace/github/imgui/")
     set(GLEW_PATH "C:/Program Files (x86)/glew")
 
-    list(APPEND DEPEND_LIBS "glew64d.lib")
-    list(APPEND DEPEND_LIBS "glfw3dll.lib")
-    list(APPEND DEPEND_LIBS "OpenGL32.lib")
+    if (CMAKE_BUILD_TYPE MATCHES "Release")
+        list(APPEND DEPEND_LIBS_RELEASE "glew64.lib")
+        list(APPEND DEPEND_LIBS_RELEASE "glfw3dll.lib")
+        list(APPEND DEPEND_LIBS_RELEASE "OpenGL32.lib")
+        list(APPEND DEPEND_LIBS_RELEASE "OpenMeshCore.lib")
+    elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
+        list(APPEND DEPEND_LIBS_DEBUG "glew64d.lib")
+        list(APPEND DEPEND_LIBS_DEBUG "glfw3dll.lib")
+        list(APPEND DEPEND_LIBS_DEBUG "OpenGL32.lib")
+        list(APPEND DEPEND_LIBS_DEBUG "OpenMeshCored.lib")
+    endif()
 endif()
 
 include_directories(
@@ -43,5 +53,9 @@ link_directories(
     ${GLEW_PATH}/lib
 )
 
+add_definitions(-D_USE_MATH_DEFINES)
+
 add_subdirectory(octree_test)
 add_subdirectory(imgui_test)
+add_subdirectory(triangle_inter_pair_test)
+add_subdirectory(cgal_test)

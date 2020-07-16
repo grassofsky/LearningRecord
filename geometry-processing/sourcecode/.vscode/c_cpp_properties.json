@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "E:/workplace/github/eigen/**"
+                "E:/workplace/github/eigen/**",
+                "C:/Program Files (x86)/OpenMesh/include/**",
+                "C:/Program Files (x86)/OpenMesh/include"
             ],
             "defines": [
                 "_DEBUG",
