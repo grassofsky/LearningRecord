@@ -83,8 +83,6 @@ n个interval A，m个interval B。
 
 定义了`Stream3`来处理three level segment tree，用来求相交boxes。
 
-**TODO**
-
 ## 4.  The hybrid algorithm
 
 定义了`Hybrid`，输入为segment，`[lo, hi)`和两个boxes集合。
@@ -129,7 +127,7 @@ Algorithm Hybrid(I, P, lo, hi, d):
 1. 递归终止的条件；
 2. 最后一个维度的时候使用scanning算法实现；
 3. 使用cutoff选择使用two way scanning；
-4. 首先生成这个区间范围内的invervals，`Im`，然后调用这两个segment trees的下一个维度；
+4. 首先生成这个区间范围内的invervals，`Im`，然后调用这两个segment trees的下一个维度；如果查找过程中，segment interval`[lo,hi)`在一部分box的interval内，那么，需要在其他的维度进行判断。
 5. `ApproxMedian`计算范围`[lo,hi)`的划分点，`mi`；
 6. 最左边进行处理；
 7. 最右边进行处理；
@@ -137,3 +135,5 @@ Algorithm Hybrid(I, P, lo, hi, d):
 ## 其他资料
 
 js实现：https://github.com/mikolalysenko/box-intersect
+
+cgal实现：`CGAL\box_intersection_d.h`
