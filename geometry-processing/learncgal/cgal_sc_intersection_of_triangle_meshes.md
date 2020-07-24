@@ -10,7 +10,7 @@
 
 ### 第一步：利用Box_intersection_d粗筛
 
-我们使用Box_intersection_d过滤出一个三角网格segments和另一个三角网格相交的区域。
+我们使用Box_intersection_d过滤出一个三角网格segments和另一个三角网格相交的区域。用来粗筛出一个三角网格的edge和另一个三角网格face的相交对。
 
 ### 第二步：求交
 

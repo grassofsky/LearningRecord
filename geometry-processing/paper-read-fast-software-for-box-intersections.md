@@ -126,9 +126,9 @@ Algorithm Hybrid(I, P, lo, hi, d):
 
 1. 递归终止的条件；
 2. 最后一个维度的时候使用scanning算法实现；
-3. 使用cutoff选择使用two way scanning；
+3. 使用cutoff选择使用modified two way scanning；通过单向交叉测试在适当的维度上模拟单向扫描。
 4. 首先生成这个区间范围内的invervals，`Im`，然后调用这两个segment trees的下一个维度；如果查找过程中，segment interval`[lo,hi)`在一部分box的interval内，那么，需要在其他的维度进行判断。
-5. `ApproxMedian`计算范围`[lo,hi)`的划分点，`mi`；
+5. `ApproxMedian`计算范围`[lo,hi)`的划分点，`mi`；论文中采用了：[APPROXIMATING CENTER POINTS WITH ITERATIVE Radon Points  (1995) ](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.112.7150) 中介绍的方法。
 6. 最左边进行处理；
 7. 最右边进行处理；
 
