@@ -3,6 +3,7 @@
         "dense": "cpp",
         "map": "cpp",
         "iostream": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "vector": "cpp"
     }
 }
