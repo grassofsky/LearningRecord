@@ -20,3 +20,4 @@ find_package(OpenSceneGraph REQUIRED
 include_directories(${OPENSCENEGRAPH_INCLUDE_DIRS})
 
 add_subdirectory(osg_test)
+add_subdirectory(osgcookbook)

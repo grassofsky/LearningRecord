@@ -1,3 +1,13 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+    "files.associations": {
+        "camera": "cpp",
+        "linesegmentintersector": "cpp",
+        "transform": "cpp",
+        "node": "cpp",
+        "referenced": "cpp",
+        "ref_ptr": "cpp",
+        "clipplane": "cpp",
+        "stateset": "cpp",
+        "vec3f": "cpp"
+    }
 }

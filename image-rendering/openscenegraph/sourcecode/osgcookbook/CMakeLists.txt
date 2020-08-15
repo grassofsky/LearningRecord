@@ -1,0 +1,5 @@
+add_subdirectory(chapter2/ch02_01)
+add_subdirectory(chapter2/ch02_03)
+add_subdirectory(chapter2/ch02_05)
+add_subdirectory(chapter2/ch02_07)
+add_subdirectory(chapter2/ch02_08)
