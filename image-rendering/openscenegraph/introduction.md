@@ -5,3 +5,4 @@
 
 ## 模块介绍
 
+texutre attachment关系

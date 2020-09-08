@@ -8,6 +8,8 @@
         "ref_ptr": "cpp",
         "clipplane": "cpp",
         "stateset": "cpp",
-        "vec3f": "cpp"
+        "vec3f": "cpp",
+        "shapedrawable": "cpp",
+        "coordinatesystemnode": "cpp"
     }
 }
