@@ -32,7 +32,7 @@
 
 **Voronoi cell：**[三角形外切圆半径计算链接](https://baike.baidu.com/item/%E5%A4%96%E6%8E%A5%E5%9C%86%E5%8D%8A%E5%BE%84%E5%85%AC%E5%BC%8F)，根据外切圆半径可以计算得到周围区域的面积；
 
-**Mixed Voronoi cell：**修正的区域面积为三角形面积的一般，非修正区域的面积计算和**Voronoi cell**一致。
+**Mixed Voronoi cell：**修正的区域面积为三角形面积的一半，非修正区域的面积计算和**Voronoi cell**一致。
 
 ## 法向量
 

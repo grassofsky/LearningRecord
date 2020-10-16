@@ -3,6 +3,8 @@
 #include <osg/Geometry>
 #include <osg/Light>
 #include <osg/LightSource>
+#include <osg/PolygonOffset>
+#include <osgGA/StateSetManipulator>
 
 #include <random>
 
@@ -148,7 +150,6 @@ public:
         }
     }
 
-protected:
     const Point& new_position(VertexHandle _vh) const
     {
         return mesh_.property(new_positions_, _vh);
@@ -245,8 +246,7 @@ private:
     OpenMesh::EPropHandleT<Scalar> edge_weights_;
 };
 
-osg::ref_ptr<osg::Group> generateGroupNode(MyMesh& mesh);
-void laplacianSmoothing(MyMesh& mesh, int nIter = 3);
+osg::ref_ptr<osg::Group> generateGroupNode(LaplaceSmootherT<MyMesh>& smoother, MyMesh& mesh);
 void addnoise(MyMesh& mesh);
 std::vector<osg::Camera*> getCameras(int nCamera);
 
@@ -256,7 +256,9 @@ int main()
     std::string filename = data_path + "sphere.stl";
     OpenMesh::IO::read_mesh(mesh, filename);
     addnoise(mesh);
-    
+
+    LaplaceSmootherT<MyMesh> smoother(mesh);
+    smoother.initialize();
 
     std::vector<osg::Camera*> cameras = getCameras(2);
     if (cameras.empty())
@@ -264,15 +266,17 @@ int main()
         return -1;
     }
     osgViewer::Viewer viewer;
-    osg::ref_ptr<osg::Group> group1 = generateGroupNode(mesh);
+    osg::ref_ptr<osg::Group> group1 = generateGroupNode(smoother, mesh);
     cameras[0]->addChild(group1);
     viewer.addSlave(cameras[0], osg::Matrixd(), osg::Matrixd::scale(1.0, 1.0, 1.0), false);
 
     // smoothing
-    laplacianSmoothing(mesh);
-    osg::ref_ptr<osg::Group> group2 = generateGroupNode(mesh);
+    smoother.smooth(3);
+    osg::ref_ptr<osg::Group> group2 = generateGroupNode(smoother, mesh);
     cameras[1]->addChild(group2);
     viewer.addSlave(cameras[1], osg::Matrixd(), osg::Matrixd::scale(1.0, 1.0, 1.0), false);
+
+    viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
 
     viewer.setSceneData(group1);
     return viewer.run();
@@ -339,21 +343,99 @@ void addnoise(MyMesh& mesh)
     }
 }
 
-void laplacianSmoothing(MyMesh& mesh, int nIter /* = 3*/)
+// calculate mean curvature https://blog.csdn.net/qq_38517015/article/details/105185241
+double getBarycentricNeighborArea(MyMesh& mesh, MyMesh::VertexIter v_it)
 {
-    LaplaceSmootherT<MyMesh> smoother(mesh);
-    smoother.initialize();
-    smoother.smooth(nIter);
+    double area = 0.0;
+    for (auto vf_it = mesh.vf_iter(*v_it); vf_it.is_valid(); ++vf_it)
+    {
+        std::vector<MyMesh::Point> vecPts;;
+        for (auto fv_it = mesh.fv_iter(*vf_it); fv_it.is_valid(); ++fv_it)
+        {
+            vecPts.push_back(mesh.point(*fv_it));
+        }
+
+        assert(vecPts.size() == 3);
+        auto a = OpenMesh::vector_cast<OpenMesh::Vec3d>(vecPts[0] - vecPts[1]).length();
+        auto b = OpenMesh::vector_cast<OpenMesh::Vec3d>(vecPts[2] - vecPts[1]).length();
+        auto c = OpenMesh::vector_cast<OpenMesh::Vec3d>(vecPts[0] - vecPts[2]).length();
+        auto p = (a + b + c) / 2.0;
+        area += std::sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+
+    return area / 3.0;
 }
 
-osg::ref_ptr<osg::Group> generateGroupNode(MyMesh& mesh)
+void colorMap(double curvature, osg::Vec4& color)
+{
+    color[3] = 1.0;
+
+    const double rone = 0.8;
+    const double gone = 1.0;
+    const double bone = 1.0;
+
+    double x = curvature;
+    x = (x < 0 ? 0 : (x > 1 ? 1 : x));
+    if (x < 1. / 8.)
+    {
+        color[0] = 0;
+        color[1] = 0;
+        color[2] = bone * (0.5 + x / (1. / 8.) * 0.5); 
+    }
+    else if (x < 3. / 8.)
+    {
+        color[0] = 0;
+        color[1] = gone * (x - 1. / 8.) / (3. / 8. - 1. / 8.);
+        color[2] = bone;
+    }
+    else if (x < 5. / 8.)
+    {
+        color[0] = rone * (x - 3. / 8.) / (5. / 8. - 3. / 8.);
+        color[1] = gone;
+        color[2] = bone - (x - 3. / 8.) / (5. / 8. - 3. / 8.);
+    }
+    else if (x < 7. / 8.)
+    {
+        color[0] = rone;
+        color[1] = gone - (x - 5. / 8.) / (7. / 8. - 5. / 8.);
+        color[2] = 0;
+    }
+    else
+    {
+        color[0] = rone - (x - 7. / 8.) / (1. - 7. / 8.) * 0.5;
+        color[1] = 0;
+        color[2] = 0;
+    }
+}
+
+osg::ref_ptr<osg::Group> generateGroupNode(LaplaceSmootherT<MyMesh>& smoother, MyMesh& mesh)
 {
     std::vector<MyMesh::Point> vecVertices;
     std::vector<MyMesh::Point> vecNormals;
+    std::vector<double> vecCurvature;
     mesh.request_face_normals();
     mesh.request_vertex_normals();
     mesh.update_face_normals();
     mesh.update_normals();
+
+    OpenMesh::VPropHandleT<double> mean_curvature;
+    mesh.add_property(mean_curvature);
+    MyMesh::VertexIter v_it, v_end(mesh.vertices_end());
+    MyMesh::ConstVertexOHalfedgeIter voh_it;
+    MyMesh::Scalar w;
+    for (v_it = mesh.vertices_begin(); v_it != v_end; ++v_it)
+    {
+        double localArea = getBarycentricNeighborArea(mesh, v_it);
+
+        MyMesh::Scalar k = 0;
+        for (voh_it = mesh.cvoh_iter(*v_it); voh_it.is_valid(); ++voh_it)
+        {
+            w = smoother.weight(mesh.edge_handle(*voh_it));
+            k += w * OpenMesh::vector_cast<OpenMesh::Vec3d>(mesh.point(*v_it) - mesh.point(mesh.to_vertex_handle(*voh_it))).length();
+        }
+        k = 0.5 * k / localArea;
+        mesh.property(mean_curvature, *v_it) = k;
+    }
 
     for (auto face : mesh.faces())
     {
@@ -361,17 +443,22 @@ osg::ref_ptr<osg::Group> generateGroupNode(MyMesh& mesh)
         {
             auto point = mesh.point(vertex);
             auto normal = mesh.normal(vertex);
+            auto curvature = mesh.property(mean_curvature, vertex);
 
             vecVertices.push_back(point);
             vecNormals.push_back(normal);
+            vecCurvature.push_back(curvature);
         }
     }
+
+    mesh.remove_property(mean_curvature);
 
     osg::ref_ptr<osg::Geode> geode = new osg::Geode();
     osg::ref_ptr<osg::Geometry> geom = new osg::Geometry();
 
     osg::ref_ptr<osg::Vec3Array> verticeArray = new osg::Vec3Array();
     osg::ref_ptr<osg::Vec3Array> normalArray = new osg::Vec3Array();
+    osg::ref_ptr<osg::Vec4Array> colorArray = new osg::Vec4Array();
     for (auto& vertex : vecVertices)
     {
         verticeArray->push_back(osg::Vec3(vertex[0], vertex[1], vertex[2]));
@@ -381,33 +468,26 @@ osg::ref_ptr<osg::Group> generateGroupNode(MyMesh& mesh)
     {
         normalArray->push_back(osg::Vec3(normal[0], normal[1], normal[2]));
     }
+    // normalize curvature
+    double minCurvature(1), maxCurvature(6);
+    for (auto& curvature : vecCurvature)
+    {
+        osg::Vec4 color;
+        colorMap((curvature - minCurvature)/(maxCurvature - minCurvature), color);
+        colorArray->push_back(color);
+    }
 
     geom->setVertexArray(verticeArray.get());
     geom->setNormalArray(normalArray.get());
     geom->setNormalBinding(osg::Geometry::BIND_PER_VERTEX);
     geom->addPrimitiveSet(new osg::DrawArrays(osg::DrawArrays::TRIANGLES, 0, vecVertices.size()));
 
-    osg::ref_ptr<osg::Vec4Array> color = new osg::Vec4Array;
-    color->push_back(osg::Vec4(1.0f, 1.0f, 0.0f, 1.0f));
-    geom->setColorArray(color.get());
-    geom->setColorBinding(osg::Geometry::BIND_OVERALL);
+    geom->setColorArray(colorArray.get());
+    geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
     geode->addDrawable(geom);
-
-    osg::ref_ptr<osg::Light> light = new osg::Light;
-    light->setLightNum(0);
-    osg::Vec3 lightDir(0.0f, 0.0f, -100.0f);
-    light->setDirection(lightDir);
-    osg::Vec4 lightPos(lightDir[0], lightDir[1], lightDir[2], 0.0f);
-    light->setPosition(lightPos);
-    light->setAmbient(osg::Vec4(0.3f, 0.3f, 0.3f, 1.0f));
-    light->setDiffuse(osg::Vec4(0.8f, 0.8f, 0.8f, 0.8f));
-
-    osg::ref_ptr<osg::LightSource> lightSource = new osg::LightSource;
-    lightSource->setLight(light);
 
     osg::ref_ptr<osg::Group> group = new osg::Group;
     group->addChild(geode);
-    group->addChild(lightSource);
 
     return group;
 }

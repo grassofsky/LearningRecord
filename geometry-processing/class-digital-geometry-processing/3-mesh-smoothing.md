@@ -29,12 +29,6 @@ $$
 \frac{\part f(t)}{\part t} = \lambda \bold{L} \bold{f(t)}
 $$
 
-为了更方便的用代码进行实现，上面的式子可以进一步转换成，原始点邻域内点的加权平均结果：
-$$
-Pos_{new} = \frac{1}{\sum \omega_i}\omega_i Adj(Pos_{old}) \\
-\omega_i = \frac{1}{2}(\cot(\alpha_i) + \cot(\beta_i))
-$$
-
 #### 时间离散化
 
 对于微小增量h，可以得到梯度函数：$\frac{\part f(t)}{\part t} = \frac{f(t+h) - f(t)}{h}$，那么可得Explicit Euler integration：
@@ -46,9 +40,19 @@ $$
 f(t+h) = f(t) + h\lambda \cdot\bold{L}f(t+h)
 $$
 
+#### Laplacian smoothing
+
+Laplacian smoothing的作用可以理解为，原始点邻域内点的加权平均结果：
+$$
+Pos_{new} = \frac{1}{\sum \omega_i}\omega_i Adj(Pos_{old}) \\
+\omega_i = \frac{1}{2}(\cot(\alpha_i) + \cot(\beta_i))
+$$
+
 ### Laplacian smoothing implement
 
+根据曲率添加颜色可以参见：https://blog.csdn.net/qq_38517015/article/details/105185241
 
+TODO
 
 ## Optimization-based methods
 

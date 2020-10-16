@@ -16,6 +16,8 @@ add_executable(${PROJECT_NAME}
     ${IMGUI_PATH}/examples/imgui_impl_opengl3.cpp 
     ${IMGUI_PATH}/examples/imgui_impl_opengl3.h
     imgui_test.cpp)
-
-target_link_libraries(${PROJECT_NAME} Debug ${DEPEND_LIBS_DEBUG})
-target_link_libraries(${PROJECT_NAME} Release ${DEPEND_LIBS_RELEASE})
+if (CMAKE_BUILD_TYPE MATCHES "Debug")
+    target_link_libraries(${PROJECT_NAME} ${DEPEND_LIBS_DEBUG})
+else()
+    target_link_libraries(${PROJECT_NAME} ${DEPEND_LIBS_RELEASE})
+endif()
