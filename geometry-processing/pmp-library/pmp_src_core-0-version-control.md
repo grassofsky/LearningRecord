@@ -47,5 +47,3 @@ public:
 
 其中由于该library处于开发阶段，`has_feature`函数，并没有明显作用。
 
-**TODO： 分析当前的发布情况**
-

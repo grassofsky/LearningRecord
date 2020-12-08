@@ -79,9 +79,11 @@ class Face : public Handle
 
 ### 关键概念介绍
 
+![](./image/boundary_concept.png)
+
 #### 顶点，边，半边，面的有效性是什么？
 
-顶点，半边，面，边的idx没有超过存储大小时（存储的内容包括添加后删除的和未删除的），是有效的。
+顶点，半边，面，边的idx没有超过存储大小时（存储的内容包括添加后删除的和未删除的），是有效的;
 
 #### 什么是顶点、半边、面、边的边界？
 
@@ -99,7 +101,7 @@ class Face : public Handle
 
 #### 什么是manifold的顶点？
 
-
+如果从这个顶点出发有多条边界半边，那么这个顶点不是manifold的。**这边需要注意的是从顶点出发的outgoing半边**。
 
 ## 关键成员变量一探
 
@@ -160,6 +162,33 @@ TODO：完善解释
 
 ## Add new elements by hand
 
+示例代码如下：
+
+```c++
+    SurfaceMesh mesh;
+
+    Point A(0, 0, 0);
+    Point B(3, -2, 0);
+    Point C(4, 0, 0);
+    Point D(3, 2, 0);
+    Point E(2, -3, 0);
+
+    Vertex vA, vB, vC, vD, vE;
+    vA = mesh.add_vertex(A);
+    vB = mesh.add_vertex(B);
+    vC = mesh.add_vertex(C);
+    vD = mesh.add_vertex(D);
+    vE = mesh.add_vertex(E);
+
+    mesh.add_triangle(vA, vB, vC);
+    mesh.add_triangle(vA, vC, vD);
+    mesh.add_triangle(vA, vE, vB);
+```
+
+示意图如下：
+
+![](./image/add_face.png)
+
 创建一个新的vertex（**face的创建和vertex类似**）：
 
 ```c++
@@ -197,10 +226,179 @@ TODO：完善解释
         Halfedge h0(halfedges_size() - 2);
         Halfedge h1(halfedges_size() - 1);
 
-        set_vertex(h0, end);    // set vertex outgoing halfedge
-        set_vertex(h1, start);  // set vertex outgoing halfedge
+        set_vertex(h0, end);    // 设置半边对应的指向的顶点
+        set_vertex(h1, start);  // 设置半边对应的指向的顶点
 
         return h0;
     }
 ```
+
+下面重点介绍一下add_face函数，在添加第一个面`vA, vE, vB`的时候主要关注的逻辑有：
+
+```c++
+    // 创建新的半边
+    for (i = 0, ii = 1; i < n; ++i, ++ii, ii %= n)
+    {
+        if (isNew[i])
+        {
+            halfedges[i] = new_edge(vertices[i], vertices[ii]);
+        }
+    }
+
+    // create the face
+    Face f(new_face());
+    // 设置这个面关联的半边
+    set_halfedge(f, halfedges[n - 1]);
+
+    // setup halfedges
+    for (i = 0, ii = 1; i < n; ++i, ++ii, ii %= n)
+    {
+        v = vertices[ii];
+        innerPrev = halfedges[i];
+        innerNext = halfedges[ii];
+
+        id = 0;
+        if (isNew[i])
+            id |= 1;
+        if (isNew[ii])
+            id |= 2;
+
+        if (id)
+        {
+            outerPrev = opposite_halfedge(innerNext);
+            outerNext = opposite_halfedge(innerPrev);
+
+            // set outer links
+            switch (id)
+            {
+                // ...
+
+                case 3: // both are new
+                    // 第一次创建的时候顶点关联的半边不是有效的
+                    if (!halfedge(v).is_valid())
+                    {
+                        // 设置顶点关联的半边为outerNext
+                        set_halfedge(v, outerNext);
+                        nextCache.emplace_back(outerPrev, outerNext);
+                    }
+                    else
+                    {
+                        boundaryNext = halfedge(v);
+                        boundaryPrev = prev_halfedge(boundaryNext);
+                        nextCache.emplace_back(boundaryPrev, outerNext);
+                        nextCache.emplace_back(outerPrev, boundaryNext);
+                    }
+                    break;
+            }
+
+            // set inner link
+            nextCache.emplace_back(innerPrev, innerNext);
+        }
+        else
+            needsAdjust[ii] = (halfedge(v) == innerNext);
+
+        // 设置半边关联的面
+        set_face(halfedges[i], f);
+    }
+
+    // process next halfedge cache
+    // 用来处理半边的连接关系
+    NextCache::const_iterator ncIt(nextCache.begin()), ncEnd(nextCache.end());
+    for (; ncIt != ncEnd; ++ncIt)
+    {
+        set_next_halfedge(ncIt->first, ncIt->second);
+    }
+```
+
+**TODO： re-link patches if necessary**，那么会走入下面的逻辑（）:
+
+```c++
+    // re-link patches if necessary
+    for (i = 0, ii = 1; i < n; ++i, ++ii, ii %= n)
+    {
+        if (!isNew[i] && !isNew[ii])
+        {
+            innerPrev = halfedges[i];
+            innerNext = halfedges[ii];
+
+            if (next_halfedge(innerPrev) != innerNext)
+            {
+                // here comes the ugly part... we have to relink a whole patch
+
+                // search a free gap
+                // free gap will be between boundaryPrev and boundaryNext
+                outerPrev = opposite_halfedge(innerNext);
+                outerNext = opposite_halfedge(innerPrev);
+                boundaryPrev = outerPrev;
+                do
+                {
+                    boundaryPrev =
+                        opposite_halfedge(next_halfedge(boundaryPrev));
+                } while (!is_boundary(boundaryPrev) ||
+                         boundaryPrev == innerPrev);
+                boundaryNext = next_halfedge(boundaryPrev);
+                assert(is_boundary(boundaryPrev));
+                assert(is_boundary(boundaryNext));
+
+                // ok ?
+                if (boundaryNext == innerNext)
+                {
+                    std::cerr
+                        << "SurfaceMeshT::add_face: patch re-linking failed\n";
+                    return Face();
+                }
+
+                // other halfedges' handles
+                patchStart = next_halfedge(innerPrev);
+                patchEnd = prev_halfedge(innerNext);
+
+                // relink
+                nextCache.emplace_back(boundaryPrev, patchStart);
+                nextCache.emplace_back(patchEnd, boundaryNext);
+                nextCache.emplace_back(innerPrev, innerNext);
+            }
+        }
+    }
+```
+
+其他的逻辑如下：
+
+**将顶点相关的半边，更新为out边界的outgoing半边。**
+
+```c++
+Face SurfaceMesh::add_face(const std::vector<Vertex>& vertices)
+{
+    // ...
+            // set outer links
+            switch (id)
+            {
+                case 1: // prev is new, next is old
+                    boundaryPrev = prev_halfedge(innerNext);
+                    nextCache.emplace_back(boundaryPrev, outerNext);
+                    set_halfedge(v, outerNext); // 将顶点相关的半边关联到新增的半边上；
+                    break;
+
+                case 2: // next is new, prev is old
+                    boundaryNext = next_halfedge(innerPrev);
+                    nextCache.emplace_back(outerPrev, boundaryNext);
+                    set_halfedge(v, boundaryNext); // 将顶点相关的半边关联到之前的边界半边上
+                    break;
+
+                case 3: // both are new
+					// ...
+    }
+    
+    // ...
+
+    return f;
+}
+```
+
+## Memory Management
+
+
+
+## TODO： Others
+
+
 

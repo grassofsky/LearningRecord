@@ -15,4 +15,7 @@
 
 - 算法组件
 
+  - differential geometry
+  - surface smoothing
+  
   

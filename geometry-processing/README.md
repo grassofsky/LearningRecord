@@ -22,3 +22,7 @@ recording geometry processing related document
 - [ ] OpenMesh - property manager
 - [ ] 三角形以及相交线段生成多边形
 - [ ] CGAL - halfedge data structures
+
+## good resource
+
+http://mgarland.org/class/geom04/schedule.html
