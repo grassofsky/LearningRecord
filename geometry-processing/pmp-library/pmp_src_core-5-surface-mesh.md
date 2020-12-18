@@ -394,7 +394,13 @@ Face SurfaceMesh::add_face(const std::vector<Vertex>& vertices)
 }
 ```
 
-## Memory Management
+## Delete elements
+
+**顶点删除**：首先获取相关联的面，进行面删除，然后再判断当前顶点是否删除，如没有，则进行删除；
+
+**边的删除：**找到边相关联的两个面，进行面删除；
+
+因此对于删除的逻辑而言，最为关键的是面的删除。
 
 
 
