@@ -394,7 +394,29 @@ Face SurfaceMesh::add_face(const std::vector<Vertex>& vertices)
 }
 ```
 
-## Delete elements
+### 小结
+
+添加元素的时候，构建半边数据结构比较关键的函数有：
+
+- `set_vertex(Halfedge, Vertex)`，设置半边的`to_vertex`
+- `set_halfedge(Face, Halfedge)`，设置面相关的半边；
+- `set_halfedge(Vertex, Halfedge)`，设置Vertex对应的outgoing半边；
+- `set_face(Halfedge, Face)`，设置Halfedge关联的边；
+- `set_next_halfedge(Halfedge, Halfedge)`，第二个半边为第一个next，第一个是第二个的pre；
+
+基本上通过上面的函数可以补全下面的关系：
+
+```c++
+    // connectivity information
+    VertexProperty<VertexConnectivity> vconn_;          // 存储该顶点对应的outgoing半边
+    HalfedgeProperty<HalfedgeConnectivity> hconn_;      // 存储半边关联的面
+                                                        // next半边
+                                                        // previous半边
+                                                        // 指向的顶点
+    FaceProperty<FaceConnectivity> fconn_;   // 存储关联的半边
+```
+
+### Delete elements
 
 **顶点删除**：首先获取相关联的面，进行面删除，然后再判断当前顶点是否删除，如没有，则进行删除；
 
