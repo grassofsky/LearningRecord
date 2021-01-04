@@ -17,6 +17,7 @@
 
   - differential geometry
   - surface smoothing
+  - surface normals
   
   
 

@@ -267,4 +267,5 @@ void SurfaceSmoothing::implicit_smoothing(Scalar timestep,
 - 常见几种平滑算法的就介绍可以参见：
 - 三角网格的Laplacian可以参见：
 - Notes on Mesh Smoothing：http://mgarland.org/class/geom04/material/smoothing.pdf
+- 显式，隐式平滑实现，可以参见：https://www.cnblogs.com/grass-and-moon/p/14149044.html
 
