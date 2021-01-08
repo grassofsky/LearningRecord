@@ -38,7 +38,7 @@ https://www.geometrictools.com/Source/Approximation.html
 
 用高斯分布、直线、圆、椭圆和一般二次曲线对二维点集进行最小二乘拟合。通过高斯分布、直线、平面、球体、椭球体、抛物面、大圆和圆弧（用于球体上的点）以及一般二次曲面拟合三维点集。用多项式拟合1、2或3个自变量的数据。提供了一个基类，允许使用随机样本一致性（RANSAC）进行拟合。
 
-**需要更进一步的学习**
+**TODO: 需要更进一步的学习**
 
 ## 4. Arithmetic
 
@@ -255,14 +255,36 @@ https://www.geometrictools.com/Source/Meshes.html
 
 ## 13. Numerical Methods
 
+https://www.geometrictools.com/Source/NumericalMethods.html
 
+提供了一组常见的数值方法。其中包括函数的多项式逼近、线性系统求解器和高斯消去法、寻根法（平分法、布伦特法、多项式根边界法）、使用Powell方向集法进行搜索的任意维极小化、高斯-牛顿极小化、Levenberg-Marquardt极小化、积分（梯形规则、Romberg积分，高斯求积），常微分方程（欧拉，隐式欧拉，中点，龙格库塔四阶），对称矩阵的特征值和特征向量，奇异值分解，Cholesky分解。线性互补问题（LCP）有一个求解器，支持浮点和任意精度算法。这对于凸二次规划（距离算法）很有用。
+
+**TODO: 进一步展开**
 
 ## 14. Physics
 
+https://www.geometrictools.com/Source/Physics.html
 
+将物体投影到直线或平面上的一组算法。该列表目前较小，但稍后将在几何体工具库中展开。
+
+- 粒子系统和弹簧质点，`ParticleSystem.h, MassSpringCurve.h, MassSpringSurface.h, MassSprintVolume.h, MassSpringArbitrary.h`
+- 模拟中的刚体处理，`PolyhedralMassProperties.h, RigidBody.h`
+- 轴对齐矩形（2D）或轴对齐长方体（3D）的空时相干相交检测。请参见示例物理应用程序相交矩形和相交框。`RectangleManager.h, BoxManager.h`
 
 ## 15. Primitives
 
+https://www.geometrictools.com/Source/Primitives.html
 
+表示二维和三维几何基本体的类。在二维中，我们有直线、光线、线段、对齐和定向的长方体、三角形、多边形、圆和圆弧以及椭圆。在3D中，我们有直线、光线、线段、平面、三角形、矩形、圆、椭圆、对齐和定向的长方体、四面体、多面体、正交圆台、球体、椭球体、圆柱体、圆锥体、胶囊、半空间和曲面。
+
+- 二维线性对象，`Line.h, Ray.h, Segment.h, Arc2.h`
+- 二维平面对象，`AlignedBox.h, OrientedBox.h, Triangle.h, Polygon2.h, Hypersphere.h, Hyperllipsoid.h, Sector2.h`
+- 三维线性对象，`Line.h, Ray.h, Segment.h`
+- 三维平面对象，
 
 ## 16. Projection
+
+https://www.geometrictools.com/Source/Projection.html
+
+ 将物体投影到直线或平面上的一组算法。该列表目前较小，但稍后将在几何体工具库中展开。 `Projection.h`
+
