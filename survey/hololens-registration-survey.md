@@ -65,8 +65,8 @@
 详细说明如下：
 
 - hololens利用RGB相机以及Dlib获取facial landmarkers (https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Kazemi_One_Millisecond_Face_2014_CVPR_paper.pdf)
-- 上一步骤获取的是二维的坐标，需要转换成三维的坐标，[相机在世界坐标系的位置](https://docs.microsoft.com/en-us/windows/mixed-reality/develop/platform-capabilities-and-apis/locatable-camera)，[ Spatial Mapping scene 使用unity raycasting算法](https://docs.unity3d.com/ScriptReference/Physics.Raycast.html) (简单理解就是将相机看到的点，转换到世界坐标系下面，)
-- ........看不懂
+- 上一步骤获取的是二维的坐标，需要转换成三维的坐标，通过相机内参，和hololens[相机在世界坐标系的位置](https://docs.microsoft.com/en-us/windows/mixed-reality/develop/platform-capabilities-and-apis/locatable-camera)（表示它的6个degrees of freedom，DoF），以及通过[ Spatial Mapping scene 使用unity raycasting算法](https://docs.unity3d.com/ScriptReference/Physics.Raycast.html) ，将二维点变换到到世界坐标系下面的点；
+- .
 
 **没看懂获取的facial landmarker怎么用来配准的？就算知道了facial landmarker对应的3D坐标？**
 

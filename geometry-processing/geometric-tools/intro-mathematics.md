@@ -175,10 +175,6 @@ https://www.geometrictools.com/Source/Interpolation.html
 
 提供了一组插值方法。其中包括双线性、双三次、三线性、三次、Akima插值、薄板样条、非均匀数据的线性插值和Cendes Wong二次C1插值（平面数据、球面数据、2D矢量场数据）。
 
-- Akima插值。对于点`(x,f(x))`，支持均匀或非均匀步长；对于点`(x,y,f(x,y))`支持均匀步长，但是x-spacing和y-spacing可以不同；对于点`(x,y,z,f(x,y,z))`支持均匀步长，但是x-spacing和y-spacing，z-spacing可以不同。`IntpAkima1, IntpAkimaNonuniform1, IntpAkimaUniform(1-3)`
-- 任意尺寸图像上均匀节点的B样条插值。有关如何使用这些类的示例，请参见示例应用程序Samples/Imagics/BSplineInterpolation。`IntpBSplineUniform.h`
-- 
-
 ## 11. Intersection
 
 如果只想要知道两个对象是否相交，只需要test-intersection的形式进行查找，如果想要知道具体相交集，需要find-intersection. 它们指定类是functor，其中operator（）接受两个输入对象，返回值是结构结果，其实现取决于输入对象类型。查询还按维度（2D或3D）和对象的内在维度（2D中的线性、平面；3D中的线性、平面、体积）进行分类.
