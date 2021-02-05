@@ -66,7 +66,7 @@
 
 - hololens利用RGB相机以及Dlib获取facial landmarkers (https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Kazemi_One_Millisecond_Face_2014_CVPR_paper.pdf)
 - 上一步骤获取的是二维的坐标，需要转换成三维的坐标，通过相机内参，和hololens[相机在世界坐标系的位置](https://docs.microsoft.com/en-us/windows/mixed-reality/develop/platform-capabilities-and-apis/locatable-camera)（表示它的6个degrees of freedom，DoF），以及通过[ Spatial Mapping scene 使用unity raycasting算法](https://docs.unity3d.com/ScriptReference/Physics.Raycast.html) ，将二维点变换到到世界坐标系下面的点；
-- .
+- 上述过程会有明显的错误，为了控制这个错误，用户不仅需要在第一次使用时重新校准设备的瞳孔间距，而且还需要让设备进一步更新环境的空间重建，在某些情况下，这可能会很耗时。为了补偿空间重构带来的误差，引入了基于三角形相似性的控制步骤[24，25]。由于相关头部的大小是通过PET-CT扫描得知的，因此值得考虑应用三角形相似性进行距离评估[47–49]。此方法仅提供有关距摄影机位置的距离大小的信息；未提供有关其方向的信息。应用变换矩阵检索方向信息。然后用空间映射平均三角剖分的结果。RGB摄像头和（患者）面部需要面朝同一方向，否则进程将失败。这只需要用于初始注册，然后虚拟对象就可以锚定到世界上，直到患者被移动。
 
 **没看懂获取的facial landmarker怎么用来配准的？就算知道了facial landmarker对应的3D坐标？**
 
