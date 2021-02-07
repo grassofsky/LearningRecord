@@ -2,6 +2,8 @@
 
 c# 网络应用编程 第2版
 
+第三版购买：https://item.jd.com/11528405.html
+
 ## chapter 1 概述
 
 TCP/IP模型各个层次的功能和协议
@@ -423,9 +425,214 @@ void AcceptClient(IAsyncResult ar)
 
 ### 5.4.3 使用异步方式调用同步方法
 
-对于任何一个方法，如果希望异步执行，最简单的方式就是通过调用委托的BeginInvoke方法，开始异步执行。
+对于任何一个方法，如果希望异步执行，最简单的方式就是通过调用委托的BeginInvoke方法，开始异步执行，然后执行其他操作，最后调用委托的EndInvoke方法结束异步操作。由于EndInvoke直到异步调用完成后才返回，因此这种方式非常适合执行文件或网络操作。具体步骤如下：
+
+**1. 声明与要调用的方法具有相同签名的委托**
+
+```c#
+private BinaryReader br;
+//...
+delegate void SendMessageDelegate(string message);
+private void SendMessage(string message)
+{
+    try
+    {
+        bw.Write(message);
+        bw.Flush();
+    }
+    catch
+    {
+        MessageBox.Show("发送失败");
+    }
+}
+```
+
+**2. 通过轮询方式检查异步调用是否完成**
+
+```c#
+private bool needExit;
+//...
+SendMessageDelegate d = new SendMessageDelegate(SendMessage);
+IAsyncResult result = d.BeginInvoke(message, null, null);
+while (result.IsCompleted == false)
+{
+    if (needExit)
+    {
+        break;
+    }
+    Thread.Sleep(50);
+}
+```
+
+**3. 使用EndInvoke结束异步调用**
+
+```c#
+private struct SendMessageStates
+{
+    public SendMessageDelegate d;
+    public IAsyncResult result;
+}
+private void AsyncSendMessage(string message)
+{
+    SendMessageDelegate d = new SendMessageDelegate(SendMessage);
+    IAsyncResult result = d.BeginInvoke(message, null, null);
+    while (result.IsCompleted == false)
+    {
+        Thread.Sleep(50);
+    }
+    // or d.EndInvoke(result);
+    SendMessageState states = new SendMessageState();
+    states.d = d;
+    states.result = result;
+    Thread t = new Thread(FinishAsnycSendMessage);
+    t.IsBackground = true;
+    t.Start(states);
+}
+private void FinishAsyncSendMessage(object obj)
+{
+    SendMessageState states = (SendMessageState)obj;
+    states.d.EndInvoke(states.result);
+}
+```
+
+**4. 在异步调用中传递多个参数**
+
+```c#
+delegate void ReceiveMessageDelegate(out string message);
+private void ReceiveMessage(out string message)
+{
+    message = null;
+    try
+    {
+        message = br.ReadString();
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+}
+//...
+ReceiveMessageDelegate d = new ReceiveMessageDelegate(ReceiveMessage);
+IAsyncResult result = d.BeginInvoke(out receiveString, null, null);
+while (result.IsCompleted == false)
+{
+    Thread.Sleep(50);
+}
+d.EndInvoke(out receiveString, result);
+```
+
+### 5.5 异步tcp编程举例
+
+可以参看原文。
+
+异步资料：https://www.cnblogs.com/jixinyu/p/4306646.html
+
+[C# BackgroundWorker 详解](https://www.cnblogs.com/sparkdev/p/5906272.html)
 
 ## chapter 6 udp应用编程
+
+UDP是简单的，面向数据报的无连接协议，提供了快速但不一定可靠的传输服务。
+
+### 6.1 UDP与TCP的区别
+
+- UDP速度比TCP快（不需要先与对方建立连接，不需要传输确认），适用于强调传输性能，而不是传输完整性的应用（如，网络音频、视屏点播、网络会议等）；
+- UDP有消息边界；
+- UDP可以一对多传输；
+- UDP可靠性不入TCP；
+- UDP不能保证有序传输；（通常只会在网络非常拥挤的情况下才会有可能发生）
+
+### 6.2 UDP应用编程技术
+
+UdpClient：https://docs.microsoft.com/zh-cn/dotnet/api/system.net.sockets.udpclient?view=netcore-3.1
+
+相关示例实现，参见原文。
+
+### 6.3 利用UDP进行广播和组播
+
+```c#
+public partial class FormBroacast : Form
+{
+    delegate void AppendStringCallback(string text);
+    AppendStringCallback appendStringCallback;
+    private int port = 8001;
+    private UdpClient udpClient;
+    public FormBroacast()
+    {
+        InitializeComponent();
+        appendStringCallback = new AppendStringCallback(AppendString);
+    }
+    private void AppendString(string text)
+    {
+        if (richTextBox1.InvokeRequired == true)
+        {
+            this.Invoke(appendStringCallback, text);
+        }
+        else
+        {
+            richTextBox1.AppendText(text + "\r\n");
+        }
+    }
+    private void ReceiveData()
+    {
+        // 组播如下：
+        // udpClient = new UdpClient(port);
+        // udpClient.JoinMulticastGroup(IPAddress.Parse("224.0.0.1"));
+        // udpClient.Ttl = 50;
+        // IPEndPoint remote = null;
+        udpClient = new UdpClient(port);
+        IPEndPoint remote = null;
+        while (true)
+        {
+            try
+            {
+                byte[] bytes = udpClient.Receive(ref remote);
+                string str = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                AppendString(string.Format("来自{0}: {1}", remote, str));
+            }
+            catch
+            {
+                break;
+            }
+        }
+    }
+    private void buttonSend_Click(object sender, EventArgs e)
+    {
+        UpdClient myUdpClient = new UdpClient();
+        try
+        {
+            // 组播如下：
+            // IPEndPoint iep = new IPEndPoint(IPAddress.Parse("224.0.0.1"), 8001);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Broadcast, 8001);
+            byte[] bytes = Encoding.UTF8.GetBytes(textBox1.Text);
+            myUpdClient.Send(bytes, bytes.Length, iep);
+            textBox1.Clear();
+            textBox1.Focus();
+        }
+        catch (Exception err)
+        {
+            MessageBox.Show(err.Message, "Send failed");
+        }
+        finally
+        {
+            myUpdClient.Close();
+        }
+    }
+    private void FormBroacast_Load(object sender, EventArgs e)
+    {
+        Thread myThread = new Thread(ReceiveData);
+        myThread.IsBackground = true;
+        myThread.Start();
+    }
+    private void FormBroacast_FormClosing(object sender, FormClosingEventArgs args)
+    {
+        udpClient.Close();
+    }
+}
+```
+
+### 6.4 利用udp编写网络会议程序
+
+见原文。
 
 ## chapter 7 ftp应用编程
 
@@ -433,12 +640,146 @@ void AcceptClient(IAsyncResult ar)
 
 ## chapter 8 http应用编程
 
+HTTP特点：
+
+- HTTP以TCP方式工作
+- HTTP是无状态的；
+- HTTP使用元信息作为标头；
+
+HTTP状态码具体规定如下：
+
+- 1xx 消息 - 请求已被服务器接收，继续处理；
+- 2xx 成功 - 请求已成功被服务器接收，继续处理；
+- 3xx 重定向 - 需要后续操作才能完成这一请求；
+- 4xx 请求错误 - 请求含有词法错误或者无法被执行；
+- 5xx 服务器错误 - 服务器在处理某个正确请求时发生错误；
+
+常用状态码如下：
+
+- 200 OK - 找到了该资源，并且一切正常；
+- 304 NOT MODIFIED - 该资源在上次请求之后没有任何修改。通常用于浏览器的缓存机制；
+- 401 UNAUTHORIZED - 客户端无权限访问该资源。这通常会使浏览器要求用户输入用户名和密码，以登入到服务器；
+- 403 FORBIDDEN - 客户端未能获得授权；
+- 404 NOT FOUND - 在指定的位置不存在所申请的资源；
+- 405 Method Not Allowed - 不支持对应的请求方法；
+- 501 Not Implemented - 服务器不能识别请求或者未实现指定的请求；
+
+WebRequest：https://docs.microsoft.com/zh-cn/dotnet/api/system.net.webrequest?view=netcore-3.1
+
+HttpWebRequest：https://docs.microsoft.com/zh-cn/dotnet/api/system.net.httpwebrequest?view=netcore-3.1
+
+WebResponse：https://docs.microsoft.com/zh-cn/dotnet/api/system.net.webresponse?view=netcore-3.1
+
+HttpWebResponse：https://docs.microsoft.com/zh-cn/dotnet/api/system.net.httpwebresponse?view=netcore-3.1
+
+Uri：https://docs.microsoft.com/zh-cn/dotnet/api/system.uri?view=netcore-3.1
+
+**Get方法请求数据示例如下**：
+
+```c#
+private void buttonOK_Click(object sender, EventArgs e)
+{
+    Encoding gb2312Encoding = Encoding.GetEncoding("GB2312");
+    string uri = "http://www.baidu.com/s?wd=" +
+        System.Web.HttpUtility.UrlEncode(textBox1.Text, gb2312Encoding);
+    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+    {
+        Stream stream = response.GetResponseStream();
+        StreamReader sr = new StreamReader(stream, Encoding.Default);
+        richTextBox1.Text = sr.ReadToEnd();
+        stream.Close();
+        sr.Close();
+    }
+    webBrowser1.DocumentText = richTextBox1.Text;
+}
+```
+
+**多线程文件下载实现**
+
+```c#
+// 检测网络资源是否有效
+public static bool IsWebResourceAvailable(string uri)
+{
+    try
+    {
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+        request.Method = "HEAD";
+        request.Timeout = 2000;
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        return (response.StatusCode == HttpStatusCode.OK);
+    }
+    catch (WebException ex)
+    {
+        System.Diagnostics.Trace.Write(ex.Message);
+        return false;
+    }
+}
+
+// 设置下载数据的范围
+// 1. 获取下载文件的总长度
+try
+{
+    request = (HttpWebRequest)HttpWebRequest.Create(sourceUri);
+    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+    long fileSize = response.ContentLength;
+    listBox1.Items.Add("文件大小：" + Math.Ceiling(fileSize/1024.0f) + "KB");
+    response.Close();
+}
+catch (Exception e)
+{
+    MessageBox.Show(e.Message);
+}
+
+// 2. 指定下载范围的数据
+try
+{
+    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(SourceUri);
+    request.AddRange(400,10000); // Control range
+    Stream stream = request.GetResponse().GetResponseStream();
+    byte[] receiveBytes = new byte[512];
+    int readBytes = stream.Read(receiveBytes, 0, receiveBytes.Length);
+    while (readBytes > 0)
+    {
+        fs.Write(receiveBytes, 0, readBytes);
+        readBytes = stream.Read(receiveBytes, 0, receiveBytes.Length);
+    }
+    stream.Close();
+}
+catch (Exception ex)
+{
+    MessageBox.Show("Receive error: " + ex.Message);
+}
+```
+
+完整示例，见原文。
+
 ## chapter 9 smtp与pop3应用编程
 
 忽略
 
 ## chapter 10 p2p应用开发技术
 
+P2P设计模式可以分为两类：一种是单纯形P2P架构，没有专用的服务器。另一种，是混合P2P架构，即单纯形和专用服务器相结合的架构，此处的服务器仅起到促成各个节点协调和扩展的功能，一般称这种服务器为索引服务器。
+
+P2P应用主要体现在以下几个方面：
+
+1）即时通信系统。
+
+2）文件下载。
+
+3）流媒体播放。
+
+4）分布式计算。
+
+P2P应用程序由发现、连接、和通信3个阶段组成。
+
+**PNRP System.Net.PeerToPeer下的绝大多数类的实现仅在.Net Framework中支持。**
+
 ## chapter 11 数据加密与解密技术
 
+**TODO**
+
 ## chapter 12 网络应用开发综合实例
+
+**TODO**
