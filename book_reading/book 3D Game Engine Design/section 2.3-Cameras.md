@@ -1,4 +1,4 @@
-# Chapter2 The Fundation
+# Chapter 2 The Fundation
 
 ## 2.3 相机
 
