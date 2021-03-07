@@ -12,6 +12,46 @@ moderngl volume raycasting example: https://github.com/ulricheck/ModernGL-Volume
 
 pyglm:https://github.com/Zuzu-Typ/PyGLM
 
+## PyGLM简介
+
+pyglm wiki page：https://github.com/Zuzu-Typ/PyGLM/wiki
+
+### PyGLM 类型
+
+主要的数据类型有：
+
+- vector，表示向量，可以有1，2，3或4个元素，可以理解成1xn的向量，也可以理解成nx1的向量，具体在矩阵乘法介绍的时候进行说明；
+- matrix，二维矩阵。矩阵的类型表示为`glm.matNxM`，其中N表示列的数目，M表示行的数目，因此数据上的2x3的矩阵，2行3列，那么用glm的表示方法即为`glm.mat3x2`。**这一点在矩阵乘法的时候特别需要注意**
+- quaternion，四元数。
+- array（`glm.array`）。是存储上述类型或编号之一的多个实例的副本的简单方法。
+
+### Using Vectors
+
+https://github.com/Zuzu-Typ/PyGLM/wiki/Using-vectors
+
+直接看到文档酒醒，没什么需要注意的。
+
+### Using Matrix
+
+
+
+将数据传递给别的lib：
+
+```python
+# a very important identity matrix
+m      = glm.mat4()
+
+# a ctypes pointer to m's data
+ptr    = glm.value_ptr(m) 
+
+# size of m's data in bytes (here 4 * 4 * 4 = 64 bytes)
+nbytes = glm.sizeof(m)
+
+glBufferData(GL_UNIFORM_BUFFER, nbytes, ptr, GL_STATIC_DRAW)
+```
+
+
+
 ## ModernGL简介
 
 modernGL中最重要的类型和对象：
