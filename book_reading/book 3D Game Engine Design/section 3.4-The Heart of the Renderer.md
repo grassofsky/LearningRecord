@@ -290,7 +290,58 @@ void ShaderEffect::LoadPrograms(int iPass, int iMaxColors,
 }
 ```
 
-在programs完成加载之后，
+在programs完成加载之后，会调用`OnLoadProgram`，用来将数据和program进行关联，代码如下：
+
+```c++
+void Shader::OnLoadProgram(Program* pkProgram)
+{
+    assert(!m_spProgram && pkProgram);
+    m_spkProgram = pkProgram;
+    
+    // The data sources must be set for the user constants.
+    // Determine how many float channels are needed for the storage
+    int iUCQuantity = m_spProgram->GetUCQuantity();
+    int i, iChannels;
+    UserConstant* pkUC;
+    for (i = 0, ,iChannels = 0; i < iUCQuantity; i++)
+    {
+        pkUC = m_spkProgram->GetUC(i);
+        assert(pkUC);
+        iChannels += 4*pkUC->GetRegisterQuantity();
+    }
+    m_kUserData.resize(iChannels);
+    
+    // Set the data sources for the user constants
+    for (i = 0, iChannels = 0; i < iUCQuantity; i++)
+    {
+        pkUC = m_spkProgram->GetUC(i);
+        assert(pkUC);
+        pkUC->SetDataSource(&m_kUserData[iChannels]);
+        iChannels += 4 * pkUC->GetRegisterQuantity();
+    }
+    
+    // load the images into the textures. If the image is 
+    // already in system memory (in the image catalog), it
+    // is ready to be used. If it is not in system memory,
+    // an attempt is make to load it from disk storage. If
+    // the image file does not exist on disk, a default magenta
+    // image is used
+    int iSIQuantity = m_spkProgram->GetSIQuantity();
+    m_kImageNames.resize(iSIQuantity);
+    m_kTextures.resize(iSIQuantity);
+    for (i = 0; i < iSIQuantity; i++)
+    {
+        Image* pkImage = ImageCatalog::GetActive()->Find(
+        	m_kImageNames[i]);
+        assert(pkImage);
+        m_kTextures[i].SetImage(pkImage);
+        m_kTextures[i].SetSamplerInformation(
+        	m_spkProgram->GetSI(i));
+    }
+}
+```
+
+示例见：`GeometricTools\WildMagic4\SampleGraphics\Iridescence\IridescenceEffect.cpp`.
 
 ### 3.4.5 Validation of shader programs
 

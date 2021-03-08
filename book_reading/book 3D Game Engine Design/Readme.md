@@ -7,3 +7,12 @@
 详细目录参见：https://www.geometrictools.com/Books/GameEngineDesign2/TableOfContents.html
 
 **TODO**项表示学习过程中不懂，等待弄懂的地方。
+
+TODO: chapter 5 Controller-Based Animation
+
+TODO：chapter 7 Level of Detail
+
+TODO: chapter 9 Physics
+
+
+
