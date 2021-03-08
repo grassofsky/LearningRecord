@@ -33,6 +33,8 @@ https://github.com/Zuzu-Typ/PyGLM/wiki/Using-vectors
 
 ### Using Matrix
 
+https://github.com/Zuzu-Typ/PyGLM/wiki/Using-matrices
+
 
 
 将数据传递给别的lib：
