@@ -40,3 +40,8 @@
 - Can sometimes filter notifications from undesired Views.
 - Update and use the Model’s data.
 - Manages Unity’s scene workflow.
+
+## 其他的示例
+
+- [【Unity3D】在Unity3d中如何使用MVC框架_恬静的小魔龙-CSDN博客](https://blog.csdn.net/q764424567/article/details/83788696#commentBox)
+
