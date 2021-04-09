@@ -111,3 +111,46 @@ N1.UpdateGS(appTime);
 
 ### 4.4.2 Render-state updates
 
+与render state更新相关的接口有：
+
+```c++
+class Spatial : public Object
+{
+public:
+    virtual void UpdateRS(std::vector<GlobalState*>* akGStack=0, 
+                          std::vector<Light*>* pkLStack = 0);
+protected:
+    void PropagateStateFromRoot(std::vector<GlobalState*>* akGStack,
+                                std::vector<Light*>* pkLStack);
+    void PushState(std::vector<GlobalState*>* akGStack,
+                   std::vector<Light*>* pkLStack);
+    void PopState(std::vector<GlobalState*>* akGStack,
+                   std::vector<Light*>* pkLStack);
+    virtual void UpdateState(std::vector<GlobalState*>* akGStack,
+                   std::vector<Light*>* pkLStack);
+};
+
+class Node : public Spatial
+{
+protected:
+    virtual void UpdateState(std::vector<GlobalState*>* akGStack,
+                             std::vector<Light*>* pkLStack);
+};
+
+class Geometry : public Spatial
+{
+protected:
+    virtual void UpdateState(std::vector<GlobalState*>* akGStack,
+                             std::vector<Light*>* pkLStack);
+};
+```
+
+常见的状态更新的图如下：
+
+![](./image/figure4-8.png)
+
+Node::UpdateState函数负责在场景层次结构的递归遍历中更新状态。Geometry::UpdateState负责将全局状态stack中的内容拷贝到合适的data member，以及将light组装为LightEffect对象，用于多次drawing的第一次绘制。状态更新具体如下：
+
+![](./image/figure4-8-1.png)
+
+具体代码实现见原文。
